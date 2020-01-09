@@ -1,17 +1,20 @@
-package com.example.pettracker
+package com.example.pettracker.Controller
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pettracker.Adapters.PetListAdapter
+import com.example.pettracker.R
+import com.example.pettracker.Services.DataService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var adapter: PetListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
+
+        adapter = PetListAdapter(this, DataService.pets)
+        recyclerViewID.adapter = adapter
+
+        val layoutManager = LinearLayoutManager(this)
+        recyclerViewID.layoutManager = layoutManager
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
