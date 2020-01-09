@@ -12,10 +12,10 @@ import com.example.pettracker.Model.Pet
 import com.example.pettracker.R
 import kotlinx.android.synthetic.main.recycler_item_pet.view.*
 
-class PetListAdapter(val context: Context, val pets: List<Pet>) : RecyclerView.Adapter<PetListAdapter.Holder>(){
+class PetListAdapter(val context: Context, val pets: List<Pet>, val itemClick: (Pet) -> Unit) : RecyclerView.Adapter<PetListAdapter.Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.recycler_item_pet, parent, false)
-        return Holder(view)
+        return Holder(view, itemClick)
     }
 
     override fun getItemCount(): Int {
@@ -26,7 +26,7 @@ class PetListAdapter(val context: Context, val pets: List<Pet>) : RecyclerView.A
         holder?.bindCategory(pets[position], context)
     }
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View, val itemClick: (Pet) -> Unit) : RecyclerView.ViewHolder(itemView) {
         //val petImage = itemView?.findViewById<ImageView>(R.id.petImageID)
         val petName = itemView?.findViewById<TextView>(R.id.petNameID)
 
@@ -34,6 +34,8 @@ class PetListAdapter(val context: Context, val pets: List<Pet>) : RecyclerView.A
             //val resourceId = context.resources.getIdentifier(pet.image, "drawable", context.packageName)
             //petImage?.setImageResource(resourceId)
             petName?.text = pet.name
+
+            itemView.setOnClickListener { itemClick(pet) }
         }
     }
 }

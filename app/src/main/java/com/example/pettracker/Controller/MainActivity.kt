@@ -1,10 +1,12 @@
 package com.example.pettracker.Controller
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettracker.Adapters.PetListAdapter
 import com.example.pettracker.R
@@ -25,7 +27,9 @@ class MainActivity : AppCompatActivity() {
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
 
-        adapter = PetListAdapter(this, DataService.pets)
+        adapter = PetListAdapter(this, DataService.pets){
+            pet ->  startActivity(Intent(this@MainActivity, PetActivity::class.java))//Toast.makeText(this, pet.name, Toast.LENGTH_SHORT).show()
+        }
         recyclerViewID.adapter = adapter
 
         val layoutManager = LinearLayoutManager(this)
