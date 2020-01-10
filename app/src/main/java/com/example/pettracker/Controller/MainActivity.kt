@@ -35,9 +35,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         recyclerViewID.layoutManager = layoutManager
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        fab.setOnClickListener { view -> startActivity(Intent(this@MainActivity, AddPetActivity::class.java))
         }
     }
 

@@ -25,7 +25,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/petNameID"
+            android:id="@+id/petNameInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="cursive"

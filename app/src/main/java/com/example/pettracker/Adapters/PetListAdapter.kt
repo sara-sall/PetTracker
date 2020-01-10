@@ -4,13 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pettracker.Model.Pet
 import com.example.pettracker.R
-import kotlinx.android.synthetic.main.recycler_item_pet.view.*
 
 class PetListAdapter(val context: Context, val pets: List<Pet>, val itemClick: (Pet) -> Unit) : RecyclerView.Adapter<PetListAdapter.Holder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -28,7 +25,7 @@ class PetListAdapter(val context: Context, val pets: List<Pet>, val itemClick: (
 
     inner class Holder(itemView: View, val itemClick: (Pet) -> Unit) : RecyclerView.ViewHolder(itemView) {
         //val petImage = itemView?.findViewById<ImageView>(R.id.petImageID)
-        val petName = itemView?.findViewById<TextView>(R.id.petNameID)
+        val petName = itemView?.findViewById<TextView>(R.id.petNameInput)
 
         fun bindCategory(pet: Pet, context: Context){
             //val resourceId = context.resources.getIdentifier(pet.image, "drawable", context.packageName)

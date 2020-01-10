@@ -5,4 +5,6 @@
     <color name="colorAccent">#4cb5a6</color>
     <color name="colorOnPrimary">#FFFFFF</color>
     <color name="dark_gray">#1F000000</color>
+    <color name="light_gray">#363636</color>
+    <color name="background_light">#e9ffff</color>
 </resources>
