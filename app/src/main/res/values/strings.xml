@@ -30,5 +30,9 @@
     <string name="alert_FCV">FCV vaccine needs updating</string>
     <string name="alert_FHC">FHC vaccine needs updating</string>
     <string name="alert_rabies">Rabies vaccine needs updating</string>
+    <string name="pet_sex_male">Male</string>
+    <string name="pet_sex_female">Female</string>
+    <string name="title_pet_bithdate">Birthdate</string>
+    <string name="title_pet_id">ID number</string>
 
 </resources>
