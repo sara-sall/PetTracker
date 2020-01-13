@@ -1,42 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardElevation="0dp"
 
     android:id="@+id/recyclerSquareMainID"
     android:clickable="true"
-    android:focusable="true"
-    >
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background_light"
+>
 
-        <FrameLayout
-            android:id="@+id/petNameBgID"
-            android:layout_width="400dp"
-            android:layout_height="60dp"
-            android:background="@color/dark_gray"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/petImageMain"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="40dp"
+            android:src="@drawable/ic_pets_white_24dp"
             android:visibility="visible"
+            app:civ_border_color="@color/dark_gray"
+            app:civ_border_width="2dp"
+            app:civ_circle_background_color="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/petNameInput"
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/petVetInfoCard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="cursive"
-            android:padding="10dp"
-            android:text="TextView"
-            android:textColor="@color/colorOnPrimary"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/petNameBgID"
-            app:layout_constraintStart_toStartOf="@+id/petNameBgID"
-            app:layout_constraintTop_toTopOf="@+id/petNameBgID" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorOnPrimary"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/petImageMain"
+            app:layout_constraintStart_toStartOf="@+id/petImageMain"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
+
+            <TextView
+                android:id="@+id/petNameInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="cursive"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/light_gray"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/petNameBgID"
+                app:layout_constraintStart_toStartOf="@+id/petNameBgID"
+                app:layout_constraintTop_toTopOf="@+id/petNameBgID" />
+
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

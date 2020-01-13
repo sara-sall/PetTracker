@@ -313,7 +313,7 @@
                         android:id="@+id/titleVetInformationAddPet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/title_insurance_information"
+                        android:text="@string/title_veterinary_information"
                         android:textColor="@color/colorPrimary"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
