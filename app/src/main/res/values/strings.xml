@@ -34,5 +34,8 @@
     <string name="pet_sex_female">Female</string>
     <string name="title_pet_bithdate">Birthdate</string>
     <string name="title_pet_id">ID number</string>
+    <string name="button_save">Save</string>
+    <string name="input_error_pet_name">Please enter pet name</string>
+    <string name="input_error_pet_sex">Please enter pet sex</string>
 
 </resources>

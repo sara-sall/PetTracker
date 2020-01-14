@@ -10,19 +10,19 @@
     tools:context=".Controller.PetActivity"
     tools:showIn="@layout/activity_pet"
     android:background="@color/background_light"
-    android:padding="8dp"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="16dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/petGenarealInfoCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/colorOnPrimary"
             app:cardCornerRadius="15dp"
             app:cardElevation="1dp">
@@ -167,7 +167,8 @@
             android:id="@+id/petVetInfoCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/colorOnPrimary"
             app:cardCornerRadius="15dp">
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -248,7 +249,7 @@
             android:id="@+id/petInsuranceInfoCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/colorOnPrimary"
             app:cardCornerRadius="15dp">
 

@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Controller.AddPetActivity"
+    tools:showIn="@layout/activity_add_pet"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:background="@color/background_light"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorOnPrimary"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/ic_pets_white_24dp"
+                    app:civ_border_color="@color/colorPrimaryDark"
+                    app:civ_border_width="2dp"
+                    app:civ_circle_background_color="@color/colorAccent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+
+                <ImageView
+                    android:id="@+id/removeImageID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_clear_black_24dp"
+                    app:layout_constraintEnd_toEndOf="@+id/addImageID"
+                    app:layout_constraintTop_toTopOf="@+id/profile_image" />
+
+                <ImageView
+                    android:id="@+id/addImageID"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_add_a_photo_green_24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.75"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/profile_image"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutPetName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_image">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/petNameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_pet_name"
+                        android:maxLines="1"
+                        android:shadowColor="@color/colorPrimaryDark"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutBreeder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@id/textInputLayoutPetName"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPetName">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/petBreederNameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_breeder_name"
+                        android:maxLines="1"
+                        android:shadowColor="@color/colorPrimaryDark"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutIdNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@id/textInputLayoutBreeder"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBreeder">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/petIdNumberInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_pet_id"
+                        android:maxLines="1"
+                        android:shadowColor="@color/colorPrimaryDark"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutRace"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@id/textInputLayoutIdNumber"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutIdNumber">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/petRaceInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_pet_race"
+                        android:maxLines="1"
+                        android:shadowColor="@color/colorPrimaryDark"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@id/textInputLayoutRace"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRace">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/petAgeInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_pet_bithdate"
+                        android:maxLines="1"
+                        android:shadowColor="@color/colorPrimaryDark"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/buttonFemale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_frame"
+                    android:checked="false"
+                    android:text="@string/pet_sex_female"
+                    android:textColor="@color/colorOnPrimary"
+                    app:layout_constraintEnd_toStartOf="@+id/buttonMale"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutAge" />
+
+                <Button
+                    android:id="@+id/buttonMale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/button_frame"
+                    android:text="@string/pet_sex_male"
+                    android:textColor="@color/colorOnPrimary"
+                    app:layout_constraintBottom_toBottomOf="@+id/buttonFemale"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/buttonFemale"
+                    app:layout_constraintTop_toTopOf="@+id/buttonFemale"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <EditText
+                    android:id="@+id/errorPetSex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/buttonMale"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/buttonMale" />
+
+                <CheckBox
+                    android:id="@+id/neuteredCheckbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/neutered"
+                    android:textColor="@color/light_gray"
+                    app:layout_constraintStart_toStartOf="@+id/buttonFemale"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonFemale" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorOnPrimary"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="1dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleInsuranceInformationAddPet" />
+
+                <TextView
+                    android:id="@+id/titleInsuranceInformationAddPet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_insurance_information"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutInsuranceProvider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@id/titleInsuranceInformationAddPet"
+                    app:layout_constraintTop_toBottomOf="@+id/titleInsuranceInformationAddPet">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/insuranceProviderInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_insurance_provider"
+                        android:maxLines="1"
+                        android:shadowColor="@color/colorPrimaryDark"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutInsuranceNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/textInputLayoutInsuranceProvider"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutInsuranceProvider">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/insuranceNumberInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_insurance_number"
+                        android:maxLines="1"
+                        android:shadowColor="@color/colorPrimaryDark"
+                        android:singleLine="true"
+                        android:textColor="@color/light_gray" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorOnPrimary"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="1dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/dark_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleVetInformationAddPet" />
+
+                <TextView
+                    android:id="@+id/titleVetInformationAddPet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_veterinary_information"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/buttonSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_frame"
+                    android:checked="false"
+                    android:text="@string/button_save"
+                    android:textColor="@color/colorOnPrimary"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>
