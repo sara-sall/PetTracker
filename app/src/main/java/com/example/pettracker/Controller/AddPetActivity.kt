@@ -11,7 +11,10 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import com.example.pettracker.R
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.content_add_pet.*
+import kotlinx.android.synthetic.main.content_pet.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,10 +26,9 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var idInput : EditText
     private lateinit var raceInput : EditText
 
-   // private lateinit var dateSetListener: object
-
     private lateinit var cal :Calendar
     private lateinit var birthDateInput : EditText
+    private lateinit var birthDateLayout : TextInputLayout
 
     private lateinit var femaleButton : Button
     private lateinit var maleButton : Button
@@ -55,6 +57,8 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
         birthDateInput = this.petAgeInput
         birthDateInput.setOnClickListener(this)
+        birthDateLayout = this.textInputLayoutAge
+        birthDateLayout.setOnClickListener(this)
 
         femaleButton = this.buttonFemale
         femaleButton.setOnClickListener(this)
@@ -91,19 +95,8 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         }
 
         when (v?.id){
-            R.id.petAgeInput->{
-                val dateSetListener = object : DatePickerDialog.OnDateSetListener {
-                    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-                        cal.set(Calendar.YEAR, year)
-                        cal.set(Calendar.MONTH, month)
-                        cal.set(Calendar.DAY_OF_YEAR, dayOfMonth)
-                        updateDateInView()
-                    }
-
-
-                }
-                DatePickerDialog(this@AddPetActivity, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
-            }
+            R.id.petAgeInput-> pickDate()
+            R.id.textInputLayoutAge-> pickDate()
 
             R.id.buttonFemale -> {
                 petSex = getString(R.string.pet_sex_female)
@@ -130,18 +123,37 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
                     petSexError.requestFocus()
                     return
                 }
-                Log.d("PET","Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Sex = $petSex, Neutered = $isNeutered" )
+                Log.d("PET3","Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Sex = $petSex, Neutered = $isNeutered" )
             }
         }
 
 
         }
 
+        private fun pickDate(){
+            val dateSetListener =
+                DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                    cal.set(Calendar.YEAR, year)
+                    cal.set(Calendar.MONTH, month)
+                    cal.set(Calendar.DAY_OF_YEAR, dayOfMonth)
+                    var editable : Editable
+                    editable = SpannableStringBuilder("$dayOfMonth-${month+1}-$year")
+                    petAgeInput.text = editable
+                   // updateDateInView()
+                    Log.d("PET1", "$year, $month, $dayOfMonth")
+                    Log.d("PETspan",editable.toString())
+                }
+            DatePickerDialog(this@AddPetActivity, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+            Log.d("PET2", "${cal.get(Calendar.DAY_OF_MONTH)}-${cal.get(Calendar.MONTH)+1}-${cal.get(Calendar.YEAR)}")
+        }
+
         private fun updateDateInView(){
-            val myFormat = "dd-MM-yyyy"
-            val sdf = SimpleDateFormat(myFormat, Locale.FRANCE)
-            var editable : Editable
-            editable = SpannableStringBuilder(sdf.format(cal.time))
-            petAgeInput.text = editable
+            val myFormat = "dd-mm-yyyy"
+            val sdf = SimpleDateFormat(myFormat)
+
+            //editable = SpannableStringBuilder(sdf.format(cal.time))
+           // editable = SpannableStringBuilder("${cal.get(Calendar.DAY_OF_MONTH)}-${cal.get(Calendar.MONTH)+1}-${cal.get(Calendar.YEAR)}")
+
+            //
     }
 }

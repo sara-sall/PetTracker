@@ -62,7 +62,7 @@
                     android:src="@drawable/ic_add_a_photo_green_24dp"
                     app:layout_constraintBottom_toBottomOf="@+id/profile_image"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.75"
+                    app:layout_constraintHorizontal_bias="0.77"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/profile_image"
                     app:layout_constraintVertical_bias="1.0" />
@@ -152,9 +152,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@id/textInputLayoutRace"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRace">
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRace"
+                    android:clickable="true">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/petAgeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -162,7 +163,10 @@
                         android:maxLines="1"
                         android:shadowColor="@color/colorPrimaryDark"
                         android:singleLine="true"
-                        android:textColor="@color/light_gray" />
+                        android:textColor="@color/light_gray"
+                        android:focusableInTouchMode="true"
+                        android:cursorVisible="false"
+                        android:focusable="false" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
