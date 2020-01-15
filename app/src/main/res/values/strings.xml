@@ -37,5 +37,7 @@
     <string name="button_save">Save</string>
     <string name="input_error_pet_name">Please enter pet name</string>
     <string name="input_error_pet_sex">Please enter pet sex</string>
+    <string name="title_add_pet">Add new pet</string>
+    <string name="empty"></string>
 
 </resources>

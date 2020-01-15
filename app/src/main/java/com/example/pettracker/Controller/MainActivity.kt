@@ -6,7 +6,9 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettracker.Adapters.PetListAdapter
 import com.example.pettracker.R
@@ -17,13 +19,18 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var adapter: PetListAdapter
+    private lateinit var toolbar: Toolbar
+    private lateinit var toolbarTitle : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbarID)
-        setSupportActionBar(toolbar)
+        toolbar = findViewById(R.id.toolbarID)
+        toolbar.title= getString(R.string.empty)
+        this.setSupportActionBar(toolbar)
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
+        toolbarTitle.text = getString(R.string.app_name)
 
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
 

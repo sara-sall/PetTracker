@@ -10,16 +10,19 @@ import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.appcompat.widget.Toolbar
 import com.example.pettracker.R
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_add_pet.*
 import kotlinx.android.synthetic.main.content_add_pet.*
 import kotlinx.android.synthetic.main.content_pet.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class AddPetActivity : AppCompatActivity(), View.OnClickListener{
-
+    private lateinit var toolbar: Toolbar
+    private lateinit var toolbarTitle : TextView
 
     private lateinit var nameInput : EditText
     private lateinit var breederInput : EditText
@@ -49,6 +52,14 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_pet)
+
+        toolbar = findViewById(R.id.toolbarID)
+        toolbar.title= getString(R.string.empty)
+        this.setSupportActionBar(toolbar)
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
+        toolbarTitle.text = getString(R.string.app_name)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         nameInput = this.petNameInput
         breederInput = this.petBreederNameInput
@@ -155,5 +166,10 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
            // editable = SpannableStringBuilder("${cal.get(Calendar.DAY_OF_MONTH)}-${cal.get(Calendar.MONTH)+1}-${cal.get(Calendar.YEAR)}")
 
             //
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

@@ -106,6 +106,7 @@
                         android:textColor="@color/light_gray" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/textInputLayoutIdNumber"
                     android:layout_width="match_parent"
@@ -151,22 +152,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:clickable="true"
                     app:layout_constraintStart_toStartOf="@id/textInputLayoutRace"
-                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRace"
-                    android:clickable="true">
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRace">
 
                     <EditText
                         android:id="@+id/petAgeInput"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
                         android:hint="@string/title_pet_bithdate"
                         android:maxLines="1"
                         android:shadowColor="@color/colorPrimaryDark"
                         android:singleLine="true"
-                        android:textColor="@color/light_gray"
-                        android:focusableInTouchMode="true"
-                        android:cursorVisible="false"
-                        android:focusable="false" />
+                        android:textColor="@color/light_gray" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
