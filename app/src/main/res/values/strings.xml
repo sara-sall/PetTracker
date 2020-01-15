@@ -39,5 +39,7 @@
     <string name="input_error_pet_sex">Please enter pet sex</string>
     <string name="title_add_pet">Add new pet</string>
     <string name="empty"></string>
+    <string name="title_vaccine_input">Vaccine</string>
+    <string name="title_date">Date</string>
 
 </resources>
