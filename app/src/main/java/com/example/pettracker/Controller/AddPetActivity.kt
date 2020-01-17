@@ -19,6 +19,9 @@ import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.example.pettracker.R
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.card_general_add_pet.*
+import kotlinx.android.synthetic.main.card_insurance_add_pet.*
+import kotlinx.android.synthetic.main.card_veterinary_add_pet.*
 import kotlinx.android.synthetic.main.content_add_pet.*
 import java.text.SimpleDateFormat
 import java.util.*
