@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/petVetInfoCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="@color/colorOnPrimary"
+    app:cardCornerRadius="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/dark_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleVetInformation" />
+
+        <TextView
+            android:id="@+id/titleVetInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_veterinary_information"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_vaccines"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/titleVetInformation"
+            app:layout_constraintTop_toBottomOf="@+id/titleVetInformation" />
+
+
+        <ImageView
+            android:id="@+id/alertFPLVImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@string/alert_FPLV"
+            android:src="@drawable/ic_error_outline_red_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewFPLV"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toTopOf="@+id/textViewFPLV"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewFPLV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vaccine_FPLV"
+            app:layout_constraintStart_toEndOf="@+id/alertFPLVImage"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/vaccineFPLVDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CAC8C8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewFPLV"
+            app:layout_constraintTop_toTopOf="@+id/textViewFPLV"
+            tools:text="2014-03-23" />
+
+        <ImageView
+            android:id="@+id/alertFCVImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@string/alert_FCV"
+            android:src="@drawable/ic_error_outline_red_24dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewFCV"
+            app:layout_constraintStart_toStartOf="@+id/alertFPLVImage"
+            app:layout_constraintTop_toTopOf="@+id/textViewFCV" />
+
+        <TextView
+            android:id="@+id/textViewFCV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/vaccine_FCV"
+            app:layout_constraintStart_toEndOf="@+id/alertFCVImage"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFPLV" />
+
+        <TextView
+            android:id="@+id/vaccineFCVDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CAC8C8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewFCV"
+            app:layout_constraintTop_toTopOf="@+id/textViewFCV"
+            tools:text="2014-03-23" />
+
+        <ImageView
+            android:id="@+id/alertFHVImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@string/alert_FHC"
+            android:src="@drawable/ic_error_outline_red_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewFHV"
+            app:layout_constraintStart_toStartOf="@+id/alertFCVImage"
+            app:layout_constraintTop_toTopOf="@+id/textViewFHV"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewFHV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/vaccine_FHC"
+            app:layout_constraintStart_toEndOf="@+id/alertFHVImage"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFCV" />
+
+        <TextView
+            android:id="@+id/vaccineFHVDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CAC8C8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewFHV"
+            app:layout_constraintTop_toTopOf="@+id/textViewFHV"
+            tools:text="2014-03-23" />
+
+        <ImageView
+            android:id="@+id/alertRabiesImage"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:contentDescription="@string/alert_rabies"
+            android:src="@drawable/ic_error_outline_red_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewRabies"
+            app:layout_constraintStart_toStartOf="@+id/alertFHVImage"
+            app:layout_constraintTop_toTopOf="@+id/textViewRabies"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/textViewRabies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/vaccine_rabies"
+            app:layout_constraintStart_toEndOf="@+id/alertRabiesImage"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFHV" />
+
+        <TextView
+            android:id="@+id/vaccineRabiesDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#CAC8C8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textViewRabies"
+            app:layout_constraintTop_toTopOf="@+id/textViewRabies"
+            tools:text="2014-03-23" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

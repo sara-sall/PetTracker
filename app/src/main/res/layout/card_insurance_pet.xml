@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/petInsuranceInfoCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@color/colorOnPrimary"
+    app:cardCornerRadius="15dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/dark_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleInsuranceInformation" />
+
+        <TextView
+            android:id="@+id/titleInsuranceInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_insurance_information"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/insuranceProviderLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@+id/titleInsuranceInformation"
+            app:layout_constraintTop_toBottomOf="@+id/titleInsuranceInformation">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_insurance_provider"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/petInsuranceProviderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/title_insurance_provider" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/insuranceNumberLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/insuranceProviderLayout"
+            app:layout_constraintTop_toBottomOf="@+id/insuranceProviderLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_insurance_number"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/petInsuranceNumberText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/title_insurance_number" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

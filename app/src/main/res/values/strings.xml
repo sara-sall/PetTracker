@@ -41,5 +41,6 @@
     <string name="empty"></string>
     <string name="title_vaccine_input">Vaccine</string>
     <string name="title_date">Date</string>
+    <string name="title_add_vaccine">Add vaccine</string>
 
 </resources>
