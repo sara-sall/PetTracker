@@ -171,6 +171,8 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
                     petSexError.requestFocus()
                     return
                 }
+
+
                 Log.d("PET3","Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Sex = $petSex, Neutered = $isNeutered" )
             }
         }

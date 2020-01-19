@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pettracker.Model.Pet
+import com.example.pettracker.Database.Pet
 import com.example.pettracker.R
 
 class PetListAdapter(val context: Context, val pets: List<Pet>, val itemClick: (Pet) -> Unit) : RecyclerView.Adapter<PetListAdapter.Holder>(){
