@@ -1,5 +1,6 @@
 package com.example.pettracker.Controller
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -43,7 +44,6 @@ class PetActivity : AppCompatActivity() {
     private lateinit var petRace: TextView
     private lateinit var petRaceLayout: LinearLayout
     private lateinit var petImageView: ImageView
-    private var petImageUri: Uri? = null
     private lateinit var petBirthDate: TextView
     private lateinit var petBirthDateLayout: LinearLayout
     private lateinit var petAge: TextView
@@ -157,6 +157,15 @@ class PetActivity : AppCompatActivity() {
         val diff: Period = Period.between(bDate, nowDate)
 
         return diff.years
+    }
+
+    override fun onBackPressed() {
+        startActivity(
+            Intent(
+                this@PetActivity,
+                MainActivity::class.java
+            )
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {
