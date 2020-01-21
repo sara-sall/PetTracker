@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
-private const val DATABASE_NAME ="pets"
+
 
 @Database(
     entities = [Pet::class],
@@ -28,7 +28,7 @@ abstract class PetRoomDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): PetRoomDatabase {
-            return Room.databaseBuilder(context, PetRoomDatabase::class.java, DATABASE_NAME).build()
+            return Room.databaseBuilder(context, PetRoomDatabase::class.java, "pets").build()
         }
     }
 }

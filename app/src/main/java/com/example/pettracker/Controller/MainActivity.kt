@@ -2,15 +2,21 @@ package com.example.pettracker.Controller
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.Nullable
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettracker.Adapters.PetListAdapter
+import com.example.pettracker.Database.Pet
+import com.example.pettracker.Database.PetViewModel
 import com.example.pettracker.R
 import com.example.pettracker.Services.DataService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -22,6 +28,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var toolbarTitle : TextView
 
+    private lateinit var mPetViewModel: PetViewModel
+
+    private var pets: ArrayList<Pet> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -32,10 +42,25 @@ class MainActivity : AppCompatActivity() {
         toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
         toolbarTitle.text = getString(R.string.app_name)
 
+        Log.d("PETS", "on Create1: $pets")
+
+        Thread {
+            mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
+            pets = mPetViewModel.allPets
+            adapter.updatePetsList(pets)
+            Log.d("PETS", "on Create2: $pets")
+        }.start()
+
+
         val fab = findViewById<FloatingActionButton>(R.id.fabAdd)
 
-        adapter = PetListAdapter(this, DataService.pets){
-            pet ->  startActivity(Intent(this@MainActivity, PetActivity::class.java))//Toast.makeText(this, pet.name, Toast.LENGTH_SHORT).show()
+        adapter = PetListAdapter(this, pets) { pet ->
+            startActivity(
+                Intent(this@MainActivity, PetActivity::class.java).putExtra(
+                    "id",
+                    pet.id
+                )
+            )//Toast.makeText(this, pet.name, Toast.LENGTH_SHORT).show()
         }
         recyclerViewID.adapter = adapter
 

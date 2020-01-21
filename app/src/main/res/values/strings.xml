@@ -42,5 +42,6 @@
     <string name="title_vaccine_input">Vaccine</string>
     <string name="title_date">Date</string>
     <string name="title_add_vaccine">Add vaccine</string>
+    <string name="error_save_pet">Something went wrong</string>
 
 </resources>

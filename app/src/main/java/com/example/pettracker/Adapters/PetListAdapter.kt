@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pettracker.Database.Pet
 import com.example.pettracker.R
 
-class PetListAdapter(val context: Context, val pets: List<Pet>, val itemClick: (Pet) -> Unit) : RecyclerView.Adapter<PetListAdapter.Holder>(){
+class PetListAdapter(val context: Context, var pets: List<Pet>, val itemClick: (Pet) -> Unit) :
+    RecyclerView.Adapter<PetListAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.recycler_item_pet, parent, false)
         return Holder(view, itemClick)
@@ -34,5 +35,10 @@ class PetListAdapter(val context: Context, val pets: List<Pet>, val itemClick: (
 
             itemView.setOnClickListener { itemClick(pet) }
         }
+    }
+
+    fun updatePetsList(petsUpdated: List<Pet>) {
+        pets = petsUpdated
+        notifyDataSetChanged()
     }
 }

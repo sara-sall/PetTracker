@@ -16,20 +16,26 @@ import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.ViewModelProviders
+import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.example.pettracker.Database.Pet
+import com.example.pettracker.Database.PetRoomDatabase
+import com.example.pettracker.Database.PetViewModel
 import com.example.pettracker.R
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.card_general_add_pet.*
 import kotlinx.android.synthetic.main.card_insurance_add_pet.*
 import kotlinx.android.synthetic.main.card_veterinary_add_pet.*
-import kotlinx.android.synthetic.main.content_add_pet.*
-import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.reflect.typeOf
 
 class AddPetActivity : AppCompatActivity(), View.OnClickListener{
+    private lateinit var db: PetRoomDatabase
+
     private lateinit var toolbar: Toolbar
     private lateinit var toolbarTitle : TextView
+
+    private var petUUID: String = ""
 
     private lateinit var petImage : ImageView
     private lateinit var addPetImageButton : ImageView
@@ -47,7 +53,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var cal :Calendar
     private lateinit var birthDateInput : EditText
     private lateinit var birthDateLayout : TextInputLayout
-    private var petBirthDate: Map<String, Int>? = null
+    private var petBirthDate: String = ""
 
     private lateinit var femaleButton : Button
     private lateinit var maleButton : Button
@@ -116,6 +122,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
         cal = Calendar.getInstance()
 
+        db = Room.databaseBuilder(applicationContext, PetRoomDatabase::class.java, "pets").build()
 
 
 
@@ -126,7 +133,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         var petName = nameInput.text.toString().trim()
         var petBreederName = breederInput.text.toString().trim()
         var petId = idInput.text.toString().trim()
-        var petRace = raceInput.toString().trim()
+        var petRace = raceInput.text.toString().trim()
         var isNeutered = false
 
         if (neuteredCheck.isChecked){
@@ -142,9 +149,14 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
                 Glide.with(this).load(getDrawable(R.drawable.ic_pets_white_24dp)).into(petImageView)
 
             }
-            R.id.petAgeInput-> petBirthDate = pickDate(birthDateInput)
-            R.id.textInputLayoutAge-> pickDate(birthDateInput)
+            R.id.petAgeInput -> {
+                pickDate(birthDateInput)
 
+            }
+            R.id.textInputLayoutAge -> {
+                pickDate(birthDateInput)
+                petBirthDate = birthDateInput.text.toString()
+            }
             R.id.buttonFemale -> {
                 petSex = getString(R.string.pet_sex_female)
                 femaleButton.background = getDrawable(R.drawable.button_frame_light)
@@ -171,33 +183,64 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
                     petSexError.requestFocus()
                     return
                 }
+                Log.d("PETS", "petUUID 1: ${petUUID}")
+
+                if (petUUID == "") {
+                    petUUID = UUID.randomUUID().toString()
+                    Log.d("PETS", "generate petUUID: ${petUUID}")
+                }
+
+                var pet = Pet(
+                    petUUID,
+                    petName,
+                    imageUri.toString(),
+                    petBreederName,
+                    petRace,
+                    petBirthDate,
+                    petSex,
+                    isNeutered
+                )
+
+                Thread {
+                    val mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
+                    mPetViewModel.insert(pet)
+
+                    startActivity(
+                        Intent(
+                            this@AddPetActivity,
+                            PetActivity::class.java
+                        ).putExtra("id", petUUID)
+                    )
+
+                }.start()
 
 
-                Log.d("PET3","Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Sex = $petSex, Neutered = $isNeutered" )
+
+
+
+
+                Log.d(
+                    "PET3",
+                    "Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Birthdate = ${birthDateInput.text} Sex = $petSex, Neutered = $isNeutered"
+                )
             }
         }
 
 
         }
 
-        private fun pickDate(inputField:EditText) :Map<String, Int>?{
-            var editable : Editable
-            var dateMap : Map<String, Int>? = null
+    private fun pickDate(inputField: EditText) {
+        var editable: Editable? = null
             val dateSetListener =
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     cal.set(Calendar.YEAR, year)
                     cal.set(Calendar.MONTH, month)
                     cal.set(Calendar.DAY_OF_YEAR, dayOfMonth)
-                    editable = SpannableStringBuilder("$dayOfMonth-${month+1}-$year")
+                    editable = SpannableStringBuilder("$year-${month + 1}-$dayOfMonth")
                     inputField.text = editable
-                    dateMap = mapOf("day" to dayOfMonth, "month" to month, "year" to year)
-
-
+                    petBirthDate = editable.toString()
                 }
             DatePickerDialog(this@AddPetActivity, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
-            Log.d("PET2", "${cal.get(Calendar.DAY_OF_MONTH)}-${cal.get(Calendar.MONTH)+1}-${cal.get(Calendar.YEAR)}")
-            return dateMap
-
     }
 
     private fun checkPermission(){
