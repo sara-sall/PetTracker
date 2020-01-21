@@ -92,18 +92,18 @@ class PetActivity : AppCompatActivity() {
 
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (pet?.petImage != "") {
-            loadImage(Uri.parse(pet!!.petImage))
-        }
-    }
 
     fun addPetData(pet: Pet) {
         toolbar.title = pet.name
 
         petName.text = pet.name
         Log.d("PETS", "Petbreedername: ${pet.breederName}")
+
+        if (pet.petImage != "") {
+            var imgUri: Uri = Uri.parse(pet.petImage)
+            petImageView.setImageURI(imgUri)
+        }
+
         if (pet.breederName == "") {
             petBreederNameLayout.visibility = View.GONE
         } else {
@@ -137,7 +137,7 @@ class PetActivity : AppCompatActivity() {
 
     private fun loadImage(imageUri: Uri) {
         //Glide.with(this).load(imageUri).into(petImageView)
-        Picasso.get().load(imageUri).into(petImageView)
+        //Picasso.get().load(imageUri).into(petImageView)
     }
 
     private fun calculateAge(bd: String): Int {
