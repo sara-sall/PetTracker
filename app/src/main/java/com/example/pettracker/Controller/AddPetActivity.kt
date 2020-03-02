@@ -80,7 +80,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         toolbar = findViewById(R.id.toolbarID)
         toolbar.title= getString(R.string.empty)
         this.setSupportActionBar(toolbar)
-        toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_pet_name)
         toolbarTitle.text = getString(R.string.app_name)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
@@ -140,6 +140,9 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
             isNeutered = true
         }
 
+        var insProvider = insProviderInput.toString().trim()
+        var insNr = insNrInput.toString().trim()
+
         when (v?.id){
             R.id.addImageID->checkPermission()
             R.id.petImageView->checkPermission()
@@ -172,62 +175,65 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
             }
             R.id.vaccineDateInput0->pickDate(vaccineDate)
-            R.id.buttonSave -> {
-                if(petName==""){
-                    nameInput.error = getString(R.string.input_error_pet_name)
-                    nameInput.requestFocus()
-                    return
-                }
-                if(petSex == ""){
-                    petSexError.error = getString(R.string.input_error_pet_sex)
-                    petSexError.requestFocus()
-                    return
-                }
-                Log.d("PETS", "petUUID 1: ${petUUID}")
+            R.id.buttonSave -> { savePet(petName, petId, petBreederName, petRace, isNeutered, insProvider, insNr)
 
-                if (petUUID == "") {
-                    petUUID = UUID.randomUUID().toString()
-                    Log.d("PETS", "generate petUUID: ${petUUID}")
-                }
-
-                var pet = Pet(
-                    petUUID,
-                    petName,
-                    imageUri.toString(),
-                    petBreederName,
-                    petRace,
-                    petBirthDate,
-                    petSex,
-                    isNeutered
-                )
-
-                Thread {
-                    val mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
-                    mPetViewModel.insert(pet)
-
-                    startActivity(
-                        Intent(
-                            this@AddPetActivity,
-                            PetActivity::class.java
-                        ).putExtra("id", petUUID)
-                    )
-
-                }.start()
-
-
-
-
-
-
-                Log.d(
-                    "PET3",
-                    "Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Birthdate = ${birthDateInput.text} Sex = $petSex, Neutered = $isNeutered"
-                )
             }
         }
+    }
 
-
+    private fun savePet(petName:String, petId: String, petBreederName: String, petRace: String, isNeutered: Boolean, insProvider:String, insNr: String){
+        if(petName==""){
+            nameInput.error = getString(R.string.input_error_pet_name)
+            nameInput.requestFocus()
+            return
         }
+        if(petSex == ""){
+            petSexError.error = getString(R.string.input_error_pet_sex)
+            petSexError.requestFocus()
+            return
+        }
+        Log.d("PETS", "petUUID 1: ${petUUID}")
+
+        if (petUUID == "") {
+            petUUID = UUID.randomUUID().toString()
+            Log.d("PETS", "generate petUUID: ${petUUID}")
+        }
+
+        var pet = Pet(
+            petUUID,
+            petName,
+            petId,
+            imageUri.toString(),
+            petBreederName,
+            petRace,
+            petBirthDate,
+            petSex,
+            isNeutered,
+            insProvider,
+            insNr
+
+        )
+
+        Thread {
+            val mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
+            mPetViewModel.insert(pet)
+
+            startActivity(
+                Intent(
+                    this@AddPetActivity,
+                    PetActivity::class.java
+                ).putExtra("id", petUUID)
+            )
+
+        }.start()
+
+
+        Log.d(
+            "PET3",
+            "Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Birthdate = ${birthDateInput.text} Sex = $petSex, Neutered = $isNeutered"
+        )
+
+    }
 
     private fun pickDate(inputField: EditText) {
         var editable: Editable? = null
@@ -262,7 +268,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     private fun openFileChooser(){
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
+        intent.action = Intent.ACTION_OPEN_DOCUMENT
         startActivityForResult(intent, PICK_IMAGE_REQUEST)
     }
 

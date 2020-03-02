@@ -1,13 +1,16 @@
 package com.example.pettracker.Adapters
 
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pettracker.Database.Pet
 import com.example.pettracker.R
+import java.lang.Exception
 
 class PetListAdapter(val context: Context, var pets: List<Pet>, val itemClick: (Pet) -> Unit) :
     RecyclerView.Adapter<PetListAdapter.Holder>() {
@@ -25,12 +28,22 @@ class PetListAdapter(val context: Context, var pets: List<Pet>, val itemClick: (
     }
 
     inner class Holder(itemView: View, val itemClick: (Pet) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        //val petImage = itemView?.findViewById<ImageView>(R.id.petImageID)
+        val petImage = itemView?.findViewById<ImageView>(R.id.petImageMain)
         val petName = itemView?.findViewById<TextView>(R.id.petNameInput)
 
         fun bindCategory(pet: Pet, context: Context){
-            //val resourceId = context.resources.getIdentifier(pet.image, "drawable", context.packageName)
-            //petImage?.setImageResource(resourceId)
+
+            try {
+                if(pet.petImage != "null"){
+                    var imgUri: Uri = Uri.parse(pet.petImage)
+                    petImage.setImageURI(imgUri)
+                }else{
+                    petImage.visibility = View.GONE
+                }
+            } catch (e : Exception ){
+                petImage.visibility = View.GONE
+            }
+
             petName?.text = pet.name
 
             itemView.setOnClickListener { itemClick(pet) }

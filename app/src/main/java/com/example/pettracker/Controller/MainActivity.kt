@@ -3,22 +3,17 @@ package com.example.pettracker.Controller
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.Nullable
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pettracker.Adapters.PetListAdapter
 import com.example.pettracker.Database.Pet
 import com.example.pettracker.Database.PetViewModel
 import com.example.pettracker.R
-import com.example.pettracker.Services.DataService
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -39,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbarID)
         toolbar.title= getString(R.string.empty)
         this.setSupportActionBar(toolbar)
-        toolbarTitle = toolbar.findViewById(R.id.toolbar_title)
+        toolbarTitle = toolbar.findViewById(R.id.toolbar_pet_name)
         toolbarTitle.text = getString(R.string.app_name)
 
         Log.d("PETS", "on Create1: $pets")
@@ -60,7 +55,8 @@ class MainActivity : AppCompatActivity() {
                     "id",
                     pet.id
                 )
-            )//Toast.makeText(this, pet.name, Toast.LENGTH_SHORT).show()
+            )
+            Log.d("PETS", "${pet.petImage}")
         }
         recyclerViewID.adapter = adapter
 

@@ -10,20 +10,25 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.FutureTarget
 import com.example.pettracker.Database.Pet
 import com.example.pettracker.Database.PetRoomDatabase
 import com.example.pettracker.R
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_pet.*
 import kotlinx.android.synthetic.main.card_general_add_pet.*
 import kotlinx.android.synthetic.main.card_general_pet.*
+import kotlinx.android.synthetic.main.card_insurance_pet.*
 import kotlinx.android.synthetic.main.card_veterinary_add_pet.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.io.File
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.Period
@@ -36,7 +41,9 @@ class PetActivity : AppCompatActivity() {
     private var databaseLoaded: Boolean = false
 
     private lateinit var toolbar: Toolbar
+    private lateinit var toolbarCollapsing: CollapsingToolbarLayout
     private lateinit var toolbarTitle: TextView
+    private lateinit var appBarLayout: AppBarLayout
 
     private lateinit var petName: TextView
     private lateinit var petBreederName: TextView
@@ -49,6 +56,13 @@ class PetActivity : AppCompatActivity() {
     private lateinit var petAge: TextView
     private lateinit var petSex: ImageView
     private lateinit var isNeutered: TextView
+
+    private lateinit var petInsProvLayout : LinearLayout
+    private lateinit var insProvider: TextView
+    private lateinit var petInsNrLayout : LinearLayout
+    private lateinit var insNr: TextView
+
+    private lateinit var petInsCard : CardView
 
 
 
@@ -64,6 +78,10 @@ class PetActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
+        toolbarTitle = this.toolbar_pet_name
+        toolbarCollapsing = this.toolbar_layout
+        appBarLayout = this.app_bar
+
         db = PetRoomDatabase.getInstance(this)
 
         petName = this.petNameText
@@ -77,6 +95,15 @@ class PetActivity : AppCompatActivity() {
         petAge = this.petAgeText
         petSex = this.petSexImage
         isNeutered = this.neuteredText
+
+        insProvider = this.petInsuranceProviderText
+        insNr = this.petInsuranceNumberText
+
+        petInsProvLayout = this.insuranceProviderLayout
+        petInsNrLayout = this.insuranceNumberLayout
+
+        petInsCard = this.petInsuranceInfoCard
+
 
 
         var extras = intent.extras
@@ -94,14 +121,21 @@ class PetActivity : AppCompatActivity() {
 
 
     fun addPetData(pet: Pet) {
-        toolbar.title = pet.name
-
+        toolbarTitle.text = pet.name
         petName.text = pet.name
         Log.d("PETS", "Petbreedername: ${pet.breederName}")
 
-        if (pet.petImage != "") {
-            var imgUri: Uri = Uri.parse(pet.petImage)
-            petImageView.setImageURI(imgUri)
+        try {
+            if(pet.petImage != "null"){
+                var imgUri: Uri = Uri.parse(pet.petImage)
+                petImageView.setImageURI(imgUri)
+            }else{
+                petImageView.setImageResource(R.drawable.ic_pets_white_24dp)
+
+            }
+        } catch (e : Exception){
+            petImageView.setImageResource(R.drawable.ic_pets_white_24dp)
+
         }
 
         if (pet.breederName == "") {
@@ -131,6 +165,22 @@ class PetActivity : AppCompatActivity() {
 
         if (pet.neutered) {
             isNeutered.visibility = View.VISIBLE
+        }
+
+        if(pet.insuranceProvider == "" && pet.insuranceNumber == ""){
+            petInsCard.visibility = View.GONE
+        }
+
+        if(pet.insuranceProvider == ""){
+            petInsProvLayout.visibility = View.GONE
+        }else{
+            insProvider.text = pet.insuranceProvider
+        }
+
+        if(pet.insuranceNumber == ""){
+            petInsNrLayout.visibility = View.GONE
+        }else{
+            insNr.text = pet.insuranceNumber
         }
 
     }

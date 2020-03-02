@@ -24,9 +24,9 @@
             layout="@layout/card_insurance_pet"
             android:id="@+id/petInsuranceInfoCard" />
 
-        <include
+        <!--<include
             layout="@layout/card_veterinary_pet"
-            android:id="@+id/petVetInfoCard" />
+            android:id="@+id/petVetInfoCard" /> -->
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
