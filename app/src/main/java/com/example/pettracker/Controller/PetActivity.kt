@@ -88,8 +88,8 @@ class PetActivity : AppCompatActivity() {
         }
 
         when (pet.sex) {
-            getString(R.string.pet_sex_female) -> petSexImage.setImageDrawable(getDrawable(R.drawable.ic_pets_pink_24dp))
-            getString(R.string.pet_sex_male) -> petSexImage.setImageDrawable(getDrawable(R.drawable.ic_pets_blue_24dp))
+            getString(R.string.pet_sex_female) -> petSexImage.setImageDrawable(getDrawable(R.mipmap.ic_female_icon))
+            getString(R.string.pet_sex_male) -> petSexImage.setImageDrawable(getDrawable(R.mipmap.ic_male_icon))
         }
 
         if (pet.neutered) neuteredText.visibility = View.VISIBLE
