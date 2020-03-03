@@ -50,7 +50,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         toolbar = findViewById(R.id.toolbarID)
         toolbar.title= getString(R.string.empty)
         this.setSupportActionBar(toolbar)
-        toolbar_pet_name.text = getString(R.string.app_name)
+        toolbar_pet_name.text = getString(R.string.title_add_pet)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
@@ -268,6 +268,8 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun addPetData(pet: Pet) {
         petUUID = pet.id
+        toolbar_pet_name.text = String.format(getString(R.string.title_edit_pet), pet.name)
+
 
         //TODO - Make this work
         //petNameInput.setText(pet.name)

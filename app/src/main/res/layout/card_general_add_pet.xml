@@ -147,7 +147,7 @@
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="true"
-                android:hint="@string/title_pet_bithdate"
+                android:hint="@string/title_pet_birthdate"
                 android:maxLines="1"
                 android:shadowColor="@color/colorPrimaryDark"
                 android:singleLine="true"

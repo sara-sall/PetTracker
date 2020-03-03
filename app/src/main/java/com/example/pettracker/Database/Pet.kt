@@ -1,9 +1,7 @@
 package com.example.pettracker.Database
 
-import android.net.Uri
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity(
     tableName = "pets"

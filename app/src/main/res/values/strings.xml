@@ -1,25 +1,34 @@
 <resources>
-    <string name="app_name">PetTracker</string>
-    <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- Header -->
+    <string name="app_name">PetTracker</string>
+    <string name="title_add_pet">Add new pet</string>
+    <string name="title_edit_pet">Edit %s</string>
+
+    <!-- Menu -->
+    <string name="action_settings">Settings</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+
+    <!-- General -->
     <string name="title_activity_pet">PetActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
     <string name="title_pet_name">Name</string>
     <string name="title_breeder_name">Breedername</string>
     <string name="neutered">Neutered</string>
     <string name="title_pet_race">Race</string>
     <string name="title_pet_age">Age</string>
+
+    <string name="title_pet_birthdate">Birthdate</string>
+    <string name="title_pet_id">ID number</string>
+    <string name="input_error_pet_name">Please enter pet name</string>
+    <string name="input_error_pet_sex">Please enter pet sex</string>
+
+    <!-- Insurance -->
     <string name="title_insurance_provider">Insurance provider</string>
     <string name="title_insurance_information">Insurance information</string>
     <string name="title_insurance_number">Insurance number</string>
+
+    <!-- Veterinary info -->
     <string name="title_veterinary_information">Veterinary information</string>
     <string name="title_vaccines">Vaccines</string>
     <string name="vaccine_FPLV">FPLV (Feline panleukopenia virus)</string>
@@ -30,35 +39,36 @@
     <string name="alert_FCV">FCV vaccine needs updating</string>
     <string name="alert_FHC">FHC vaccine needs updating</string>
     <string name="alert_rabies">Rabies vaccine needs updating</string>
-    <string name="pet_sex_male">Male</string>
-    <string name="pet_sex_female">Female</string>
-    <string name="title_pet_bithdate">Birthdate</string>
-    <string name="title_pet_id">ID number</string>
-    <string name="button_save">Save</string>
-    <string name="input_error_pet_name">Please enter pet name</string>
-    <string name="input_error_pet_sex">Please enter pet sex</string>
-    <string name="title_add_pet">Add new pet</string>
-    <string name="empty"></string>
-    <string name="title_vaccine_input">Vaccine</string>
-    <string name="title_date">Date</string>
-    <string name="title_add_vaccine">Add vaccine</string>
-    <string name="error_save_pet">Something went wrong</string>
-    <string name="action_edit">Edit</string>
-    <string name="action_delete">Delete</string>
-    <string name="alert_warning">Warning!</string>
-    <string name="alert_delete_message">Do you really want to delete %s?</string>
-    <string name="alert_cancel">Cancel</string>
-    <string name="alert_delete_toast">%s has been deleted</string>
-    <string name="button_pet_sex_female">Female</string>
-    <string name="button_pet_sex_male">Male</string>
 
-    <!-- Vaccines -->
     <string-array name="vaccine_array">
         <item>FPLV (Feline panleukopenia virus)</item>
         <item>FCV (Feline CaliciVirus)</item>
         <item>FHC (Feline herpesvirus)</item>
         <item>Rabies</item>
     </string-array>
+
     <string name="vaccine_prompt">Choose vaccine</string>
+    <string name="title_vaccine_input">Vaccine</string>
+    <string name="title_date">Date</string>
+    <string name="title_add_vaccine">Add vaccine</string>
+
+    <!-- Util -->
+    <string name="empty"></string>
+    <string name="pet_sex_male">Male</string>
+    <string name="pet_sex_female">Female</string>
+
+    <!-- Error/Alert -->
+    <string name="error_save_pet">Something went wrong</string>
+    <string name="alert_warning">Warning!</string>
+    <string name="alert_delete_message">Do you really want to delete %s?</string>
+    <string name="alert_cancel">Cancel</string>
+    <string name="alert_delete_toast">%s has been deleted</string>
+
+    <!-- Buttons -->
+    <string name="button_pet_sex_female">Female</string>
+    <string name="button_pet_sex_male">Male</string>
+    <string name="button_save">Save</string>
+
+
 
 </resources>
