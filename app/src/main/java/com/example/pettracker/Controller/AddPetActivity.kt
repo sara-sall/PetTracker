@@ -115,18 +115,18 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun savePet(){
-        var petName = petNameInput.text.toString().trim()
-        var petBreederName = petBreederNameInput.text.toString().trim()
-        var petId = petIdNumberInput.text.toString().trim()
-        var petRace = petRaceInput.text.toString().trim()
+        val petName = petNameInput.text.toString().trim()
+        val petBreederName = petBreederNameInput.text.toString().trim()
+        val petId = petIdNumberInput.text.toString().trim()
+        val petRace = petRaceInput.text.toString().trim()
         var isNeutered = false
 
         if (neuteredCheckbox.isChecked){
             isNeutered = true
         }
 
-        var insProvider = insuranceProviderInput.text.toString().trim()
-        var insNr = insuranceNumberInput.text.toString().trim()
+        val insProvider = insuranceProviderInput.text.toString().trim()
+        val insNr = insuranceNumberInput.text.toString().trim()
 
 
         if(petName==""){
@@ -139,14 +139,14 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
             errorPetSex.requestFocus()
             return
         }
-        Log.d("PETS", "petUUID 1: ${petUUID}")
+        Log.d("PETS", "petUUID 1: $petUUID")
 
         if (petUUID == "") {
             petUUID = UUID.randomUUID().toString()
-            Log.d("PETS", "generate petUUID: ${petUUID}")
+            Log.d("PETS", "generate petUUID: $petUUID")
         }
 
-        var pet = Pet(
+        val pet = Pet(
             petUUID,
             petName,
             petId,
@@ -183,7 +183,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun pickDate(inputField: EditText) {
-        var editable: Editable? = null
+        var editable: Editable?
             val dateSetListener =
                 DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                     cal.set(Calendar.YEAR, year)
@@ -197,15 +197,10 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun checkPermission(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_DENIED){
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
-                requestPermissions(permissions, PERMISSION_CODE);
-            }
-            else{
-                openFileChooser()
-            }
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
+            PackageManager.PERMISSION_DENIED){
+            val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            requestPermissions(permissions, PERMISSION_CODE)
         }
         else{
             openFileChooser()
@@ -226,7 +221,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     ) {
         when(requestCode){
             PERMISSION_CODE->{
-                if (grantResults.size >0 && grantResults[0] ==
+                if (grantResults.isNotEmpty() && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED){
                     //permission from popup granted
                     openFileChooser()

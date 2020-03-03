@@ -15,7 +15,7 @@ import java.lang.Exception
 class PetListAdapter(val context: Context, var pets: List<Pet>, val itemClick: (Pet) -> Unit) :
     RecyclerView.Adapter<PetListAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent?.context).inflate(R.layout.recycler_item_pet, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_pet, parent, false)
         return Holder(view, itemClick)
     }
 
@@ -24,18 +24,18 @@ class PetListAdapter(val context: Context, var pets: List<Pet>, val itemClick: (
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bindCategory(pets[position], context)
+        holder.bindCategory(pets[position])
     }
 
     inner class Holder(itemView: View, val itemClick: (Pet) -> Unit) : RecyclerView.ViewHolder(itemView) {
-        val petImage = itemView?.findViewById<ImageView>(R.id.petImageMain)
-        val petName = itemView?.findViewById<TextView>(R.id.petNameInput)
+        val petImage = itemView.findViewById<ImageView>(R.id.petImageMain)
+        val petName = itemView.findViewById<TextView>(R.id.petNameInput)
 
-        fun bindCategory(pet: Pet, context: Context){
+        fun bindCategory(pet: Pet){
 
             try {
                 if(pet.petImage != "null"){
-                    var imgUri: Uri = Uri.parse(pet.petImage)
+                    val imgUri: Uri = Uri.parse(pet.petImage)
                     petImage.setImageURI(imgUri)
                 }else{
                     petImage.visibility = View.GONE

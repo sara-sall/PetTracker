@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +15,7 @@ import com.example.pettracker.Database.PetViewModel
 import com.example.pettracker.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_pet.*
 import kotlinx.android.synthetic.main.activity_pet.toolbar_pet_name
-import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     pet.id
                 )
             )
-            Log.d("PETS", "${pet.petImage}")
+            Log.d("PETS", "$pet.petImage")
         }
         recyclerViewID.adapter = adapter
 

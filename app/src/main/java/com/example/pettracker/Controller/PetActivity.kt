@@ -5,20 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.cardview.widget.CardView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.FutureTarget
 import com.example.pettracker.Database.Pet
 import com.example.pettracker.Database.PetRoomDatabase
 import com.example.pettracker.R
 import com.google.android.material.appbar.AppBarLayout
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_pet.*
 import kotlinx.android.synthetic.main.card_general_pet.*
 import kotlinx.android.synthetic.main.card_insurance_pet.*
@@ -32,8 +24,6 @@ class PetActivity : AppCompatActivity() {
 
     private lateinit var db: PetRoomDatabase
     private var pet: Pet? = null
-    private var databaseLoaded: Boolean = false
-
     private lateinit var toolbar: Toolbar
     private lateinit var appBarLayout: AppBarLayout
 
@@ -51,7 +41,7 @@ class PetActivity : AppCompatActivity() {
 
         db = PetRoomDatabase.getInstance(this)
 
-        var extras = intent.extras
+        val extras = intent.extras
         val id = extras?.get("id") as String
 
         Thread {
@@ -65,14 +55,14 @@ class PetActivity : AppCompatActivity() {
     }
 
 
-    fun addPetData(pet: Pet) {
+    private fun addPetData(pet: Pet) {
         toolbar_pet_name.text = pet.name
         petNameText.text = pet.name
         Log.d("PETS", "Petbreedername: ${pet.breederName}")
 
         try {
             if(pet.petImage != "null"){
-                var imgUri: Uri = Uri.parse(pet.petImage)
+                val imgUri: Uri = Uri.parse(pet.petImage)
                 pImage.setImageURI(imgUri)
             }else{
                 pImage.setImageResource(R.drawable.ic_pets_white_24dp)
@@ -130,15 +120,10 @@ class PetActivity : AppCompatActivity() {
 
     }
 
-    private fun loadImage(imageUri: Uri) {
-        Glide.with(this).load(imageUri).into(pImage)
-        //Picasso.get().load(imageUri).into(pImage)
-    }
-
     private fun calculateAge(bd: String): Int {
-        var sdf: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        var date: Date? = sdf.parse(bd)
-        var cal: Calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        val date: Date? = sdf.parse(bd)
+        val cal: Calendar = Calendar.getInstance()
 
         cal.time = date
 
