@@ -34,6 +34,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Spinner
+            android:id="@+id/vaccineSpinner0"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:entries="@array/vaccine_array"
+            android:prompt="@string/vaccine_prompt"
+            android:textColor="@color/light_gray"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vaccineTextView" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/vaccineInputLayout0"
             android:layout_width="0dp"
@@ -41,7 +52,8 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleVetInformationAddPet">
+            app:layout_constraintTop_toBottomOf="@+id/titleVetInformationAddPet"
+            android:visibility="gone">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/vaccineTextInput0"
@@ -59,24 +71,25 @@
             android:id="@+id/vaccineDateLayout0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/vaccineInputLayout0"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/vaccineSpinner0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toTopOf="@+id/vaccineInputLayout0">
+            app:layout_constraintTop_toTopOf="@+id/vaccineTextView">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/vaccineDateInput0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="true"
                 android:hint="@string/title_date"
                 android:maxLines="1"
-                android:textColorHint="@color/colorPrimary"
                 android:shadowColor="@color/colorPrimaryDark"
                 android:singleLine="true"
                 android:textColor="@color/light_gray"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="true" />
+                android:textColorHint="@color/colorPrimary" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,6 +132,15 @@
             app:layout_constraintBottom_toBottomOf="@+id/addVaccineButton"
             app:layout_constraintEnd_toStartOf="@+id/addVaccineButton"
             app:layout_constraintTop_toTopOf="@+id/addVaccineButton" />
+
+        <TextView
+            android:id="@+id/vaccineTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/title_vaccines"
+            app:layout_constraintStart_toStartOf="@+id/titleVetInformationAddPet"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

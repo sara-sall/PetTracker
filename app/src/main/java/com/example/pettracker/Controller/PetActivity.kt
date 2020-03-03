@@ -1,10 +1,15 @@
 package com.example.pettracker.Controller
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.pettracker.Database.Pet
@@ -47,7 +52,6 @@ class PetActivity : AppCompatActivity() {
         Thread {
             pet = db.petRoomDao().getPetById(id)
             addPetData(pet!!)
-
         }.start()
 
 
@@ -151,5 +155,52 @@ class PetActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_pet, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) :Boolean {
+        return when(item.itemId) {
+            R.id.action_edit -> {
+                startActivity(Intent(this@PetActivity, AddPetActivity::class.java).putExtra(
+                    "id",
+                    pet?.id))
+                true
+            }
+            R.id.action_delete -> {
+                alertCheck()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun alertCheck() {
+        val alert = AlertDialog.Builder(this)
+
+        alert.setTitle(getString(R.string.alert_warning))
+        alert.setMessage(String.format(getString(R.string.alert_delete_message), pet?.name))
+
+        alert.setPositiveButton(getString(R.string.action_delete)) { dialog, which ->
+           deletePet()
+        }
+
+        alert.setNegativeButton(getString(R.string.alert_cancel)) { dialog, which ->
+        }
+
+        alert.show()
+
+    }
+
+    private fun deletePet(){
+        Thread {
+            db.petRoomDao().deletePet(pet!!)
+        }.start()
+        Toast.makeText(this, String.format(getString(R.string.alert_delete_toast, pet?.name )), Toast.LENGTH_SHORT).show()
+        startActivity(Intent(this@PetActivity, MainActivity::class.java))
+
     }
 }

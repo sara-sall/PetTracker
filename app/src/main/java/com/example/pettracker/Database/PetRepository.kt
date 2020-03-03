@@ -16,6 +16,10 @@ class PetRepository(application: Application) {
         insertAsyncTask(petDao).execute(pet)
     }
 
+    fun delete(pet: Pet){
+        deletePetById(petDao).execute(pet)
+    }
+
     private class insertAsyncTask(petDao: PetDao) : AsyncTask<Pet, Void, Void>() {
         private val mAsyncTaskDao: PetDao = petDao
         override fun doInBackground(vararg params: Pet?): Void? {
@@ -30,7 +34,14 @@ class PetRepository(application: Application) {
         public override fun doInBackground(vararg params: String?): Pet {
             return mTaskDao.getPetById(params.toString())
         }
+    }
 
+    private class deletePetById(petDao: PetDao) : AsyncTask<Pet, Void, Void>() {
+        private val mAsyncTaskDao: PetDao = petDao
+        override fun doInBackground(vararg params: Pet): Void? {
+            mAsyncTaskDao.deletePet(params[0])
+            return null
+        }
 
     }
 }

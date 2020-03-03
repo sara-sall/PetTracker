@@ -38,11 +38,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                >
 
                 <TextView
                     android:id="@+id/toolbar_pet_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="cursive"
                     android:textSize="35sp"
@@ -52,7 +53,8 @@
                     android:shadowRadius="15"
                     android:textColor="@color/colorOnPrimary"
                     android:textStyle="bold"
-                    tools:text="Bella" />
+                    tools:text="Bella"
+                    />
 
 
             </androidx.appcompat.widget.Toolbar>

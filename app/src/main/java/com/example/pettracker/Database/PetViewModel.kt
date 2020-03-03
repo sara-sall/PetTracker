@@ -18,4 +18,8 @@ class PetViewModel(application: Application) : AndroidViewModel(application) {
         return mRepository.getPetById(petUUID)
     }
 
+    fun deletePet(pet: Pet){
+        mRepository.delete(pet)
+    }
+
 }

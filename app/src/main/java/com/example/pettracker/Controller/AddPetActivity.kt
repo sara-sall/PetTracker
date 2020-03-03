@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_pet.*
 import kotlinx.android.synthetic.main.card_general_add_pet.*
 import kotlinx.android.synthetic.main.card_insurance_add_pet.*
 import kotlinx.android.synthetic.main.card_veterinary_add_pet.*
+import java.lang.Exception
 import java.util.*
 
 class AddPetActivity : AppCompatActivity(), View.OnClickListener{
@@ -39,6 +40,8 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var cal :Calendar
     private var petBirthDate: String = ""
     private var petSex =""
+
+    private var pet: Pet? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +72,18 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
         db = Room.databaseBuilder(applicationContext, PetRoomDatabase::class.java, "pets").build()
 
+        db = PetRoomDatabase.getInstance(this)
 
+        val extras = intent.extras
+
+        if(extras != null){
+            val id = extras.get("id") as String
+            Thread {
+                pet = db.petRoomDao().getPetById(id)
+                addPetData(pet!!)
+                Log.d("PETS", "${pet?.name}: ${pet?.id}")
+            }.start()
+        }
 
     }
 
@@ -250,5 +264,48 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    private fun addPetData(pet: Pet) {
+        petUUID = pet.id
+
+        //TODO - Make this work
+        //petNameInput.setText(pet.name)
+
+       // petBreederNameInput.text = pet.breederName as Editable
+       // petIdNumberInput.text = pet.petID as Editable
+        //petRaceInput.text = pet.race as Editable
+        //petAgeInput.text = pet.birthDay as Editable
+
+        //insuranceProviderInput.text = pet.insuranceProvider as Editable
+        //insuranceNumberInput.text = pet.insuranceNumber as Editable
+
+        if(pet.neutered){
+            neuteredCheckbox.isChecked = true
+        }
+
+        when(pet.sex){
+            getString(R.string.pet_sex_female) -> {
+                petSex = pet.sex
+                buttonFemale.background = getDrawable(R.drawable.button_frame_light)
+                buttonMale.background = getDrawable(R.drawable.button_frame_dark)
+            }
+
+            getString(R.string.pet_sex_male) -> {
+                petSex = pet.sex
+                buttonMale.background = getDrawable(R.drawable.button_frame_light)
+                buttonFemale.background = getDrawable(R.drawable.button_frame_dark)
+            }
+        }
+
+        try {
+            if(pet.petImage != "null"){
+                imageUri = Uri.parse(pet.petImage)
+                petImageView.setImageURI(imageUri)
+            }
+        } catch (e : Exception){
+
+        }
+
     }
 }

@@ -43,5 +43,22 @@
     <string name="title_date">Date</string>
     <string name="title_add_vaccine">Add vaccine</string>
     <string name="error_save_pet">Something went wrong</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
+    <string name="alert_warning">Warning!</string>
+    <string name="alert_delete_message">Do you really want to delete %s?</string>
+    <string name="alert_cancel">Cancel</string>
+    <string name="alert_delete_toast">%s has been deleted</string>
+    <string name="button_pet_sex_female">Female</string>
+    <string name="button_pet_sex_male">Male</string>
+
+    <!-- Vaccines -->
+    <string-array name="vaccine_array">
+        <item>FPLV (Feline panleukopenia virus)</item>
+        <item>FCV (Feline CaliciVirus)</item>
+        <item>FHC (Feline herpesvirus)</item>
+        <item>Rabies</item>
+    </string-array>
+    <string name="vaccine_prompt">Choose vaccine</string>
 
 </resources>
