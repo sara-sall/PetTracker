@@ -17,7 +17,6 @@
     <string name="neutered">Neutered</string>
     <string name="title_pet_race">Race</string>
     <string name="title_pet_age">Age</string>
-
     <string name="title_pet_birthdate">Birthdate</string>
     <string name="title_pet_id">ID number</string>
     <string name="input_error_pet_name">Please enter pet name</string>

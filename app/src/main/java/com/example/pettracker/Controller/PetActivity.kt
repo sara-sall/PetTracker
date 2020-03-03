@@ -53,15 +53,12 @@ class PetActivity : AppCompatActivity() {
             addPetData(pet!!)
         }.start()
 
-
-
     }
 
 
     private fun addPetData(pet: Pet) {
         toolbar_pet_name.text = pet.name
         petNameText.text = pet.name
-        Log.d("PETS", "Petbreedername: ${pet.breederName}")
 
         try {
             if(pet.petImage != "null"){
@@ -76,17 +73,11 @@ class PetActivity : AppCompatActivity() {
 
         }
 
-        if (pet.breederName == "") {
-            breederNameLayout.visibility = View.GONE
-        } else {
-            petBreederNameText.text = pet.breederName
-        }
+        if (pet.breederName == "") breederNameLayout.visibility = View.GONE
+        else petBreederNameText.text = pet.breederName
 
-        if (pet.race == "") {
-            raceLayout.visibility = View.GONE
-        } else {
-            petRaceText.text = pet.race
-        }
+        if (pet.race == "") raceLayout.visibility = View.GONE
+        else petRaceText.text = pet.race
 
         if (pet.birthDay == "") {
             petAgeLayout.visibility = View.GONE
@@ -101,25 +92,15 @@ class PetActivity : AppCompatActivity() {
             getString(R.string.pet_sex_male) -> petSexImage.setImageDrawable(getDrawable(R.drawable.ic_pets_blue_24dp))
         }
 
-        if (pet.neutered) {
-            neuteredText.visibility = View.VISIBLE
-        }
+        if (pet.neutered) neuteredText.visibility = View.VISIBLE
 
-        if(pet.insuranceProvider == "" && pet.insuranceNumber == ""){
-            petInsuranceInfoCard.visibility = View.GONE
-        }
+        if(pet.insuranceProvider == "" && pet.insuranceNumber == "")petInsuranceInfoCard.visibility = View.GONE
 
-        if(pet.insuranceProvider == ""){
-            insuranceProviderLayout.visibility = View.GONE
-        }else{
-            petInsuranceProviderText.text = pet.insuranceProvider
-        }
+        if(pet.insuranceProvider == "")insuranceProviderLayout.visibility = View.GONE
+        else petInsuranceProviderText.text = pet.insuranceProvider
 
-        if(pet.insuranceNumber == ""){
-            insuranceNumberLayout.visibility = View.GONE
-        }else{
-            petInsuranceNumberText.text = pet.insuranceNumber
-        }
+        if(pet.insuranceNumber == "") insuranceNumberLayout.visibility = View.GONE
+        else petInsuranceNumberText.text = pet.insuranceNumber
 
     }
 
@@ -183,11 +164,11 @@ class PetActivity : AppCompatActivity() {
         alert.setTitle(getString(R.string.alert_warning))
         alert.setMessage(String.format(getString(R.string.alert_delete_message), pet?.name))
 
-        alert.setPositiveButton(getString(R.string.action_delete)) { dialog, which ->
+        alert.setPositiveButton(getString(R.string.action_delete)) { _, _ ->
            deletePet()
         }
 
-        alert.setNegativeButton(getString(R.string.alert_cancel)) { dialog, which ->
+        alert.setNegativeButton(getString(R.string.alert_cancel)) { _, _ ->
         }
 
         alert.show()
