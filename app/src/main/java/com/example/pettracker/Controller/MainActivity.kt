@@ -16,15 +16,15 @@ import com.example.pettracker.Database.PetViewModel
 import com.example.pettracker.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_pet.*
+import kotlinx.android.synthetic.main.activity_pet.toolbar_pet_name
+import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var adapter: PetListAdapter
     private lateinit var toolbar: Toolbar
-    private lateinit var toolbarTitle : TextView
-
     private lateinit var mPetViewModel: PetViewModel
-
     private var pets: ArrayList<Pet> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,10 +34,8 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbarID)
         toolbar.title= getString(R.string.empty)
         this.setSupportActionBar(toolbar)
-        toolbarTitle = toolbar.findViewById(R.id.toolbar_pet_name)
-        toolbarTitle.text = getString(R.string.app_name)
+        toolbar_pet_name.text = getString(R.string.app_name)
 
-        Log.d("PETS", "on Create1: $pets")
 
         Thread {
             mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)

@@ -18,16 +18,10 @@ import com.example.pettracker.Database.Pet
 import com.example.pettracker.Database.PetRoomDatabase
 import com.example.pettracker.R
 import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_pet.*
-import kotlinx.android.synthetic.main.card_general_add_pet.*
 import kotlinx.android.synthetic.main.card_general_pet.*
 import kotlinx.android.synthetic.main.card_insurance_pet.*
-import kotlinx.android.synthetic.main.card_veterinary_add_pet.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.File
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -41,32 +35,7 @@ class PetActivity : AppCompatActivity() {
     private var databaseLoaded: Boolean = false
 
     private lateinit var toolbar: Toolbar
-    private lateinit var toolbarCollapsing: CollapsingToolbarLayout
-    private lateinit var toolbarTitle: TextView
     private lateinit var appBarLayout: AppBarLayout
-
-    private lateinit var petName: TextView
-    private lateinit var petBreederName: TextView
-    private lateinit var petBreederNameLayout: LinearLayout
-    private lateinit var petRace: TextView
-    private lateinit var petRaceLayout: LinearLayout
-    private lateinit var petImageView: ImageView
-    private lateinit var petBirthDate: TextView
-    private lateinit var petBirthDateLayout: LinearLayout
-    private lateinit var petAge: TextView
-    private lateinit var petSex: ImageView
-    private lateinit var isNeutered: TextView
-
-    private lateinit var petInsProvLayout : LinearLayout
-    private lateinit var insProvider: TextView
-    private lateinit var petInsNrLayout : LinearLayout
-    private lateinit var insNr: TextView
-
-    private lateinit var petInsCard : CardView
-
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,33 +47,9 @@ class PetActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        toolbarTitle = this.toolbar_pet_name
-        toolbarCollapsing = this.toolbar_layout
         appBarLayout = this.app_bar
 
         db = PetRoomDatabase.getInstance(this)
-
-        petName = this.petNameText
-        petBreederName = this.petBreederNameText
-        petBreederNameLayout = this.breederNameLayout
-        petRace = this.petRaceText
-        petRaceLayout = this.raceLayout
-        petImageView = this.pImage
-        petBirthDate = this.petBirthdateText
-        petBirthDateLayout = this.petAgeLayout
-        petAge = this.petAgeText
-        petSex = this.petSexImage
-        isNeutered = this.neuteredText
-
-        insProvider = this.petInsuranceProviderText
-        insNr = this.petInsuranceNumberText
-
-        petInsProvLayout = this.insuranceProviderLayout
-        petInsNrLayout = this.insuranceNumberLayout
-
-        petInsCard = this.petInsuranceInfoCard
-
-
 
         var extras = intent.extras
         val id = extras?.get("id") as String
@@ -121,73 +66,73 @@ class PetActivity : AppCompatActivity() {
 
 
     fun addPetData(pet: Pet) {
-        toolbarTitle.text = pet.name
-        petName.text = pet.name
+        toolbar_pet_name.text = pet.name
+        petNameText.text = pet.name
         Log.d("PETS", "Petbreedername: ${pet.breederName}")
 
         try {
             if(pet.petImage != "null"){
                 var imgUri: Uri = Uri.parse(pet.petImage)
-                petImageView.setImageURI(imgUri)
+                pImage.setImageURI(imgUri)
             }else{
-                petImageView.setImageResource(R.drawable.ic_pets_white_24dp)
+                pImage.setImageResource(R.drawable.ic_pets_white_24dp)
 
             }
         } catch (e : Exception){
-            petImageView.setImageResource(R.drawable.ic_pets_white_24dp)
+            pImage.setImageResource(R.drawable.ic_pets_white_24dp)
 
         }
 
         if (pet.breederName == "") {
-            petBreederNameLayout.visibility = View.GONE
+            breederNameLayout.visibility = View.GONE
         } else {
-            petBreederName.text = pet.breederName
+            petBreederNameText.text = pet.breederName
         }
 
         if (pet.race == "") {
-            petRaceLayout.visibility = View.GONE
+            raceLayout.visibility = View.GONE
         } else {
-            petRace.text = pet.race
+            petRaceText.text = pet.race
         }
 
         if (pet.birthDay == "") {
-            petBirthDateLayout.visibility = View.GONE
-            petAge.visibility = View.GONE
+            petAgeLayout.visibility = View.GONE
+            petAgeText.visibility = View.GONE
         } else {
-            petBirthDate.text = pet.birthDay
-            petAge.text = "${calculateAge(pet.birthDay)}"
+            petBirthdateText.text = pet.birthDay
+            petAgeText.text = "${calculateAge(pet.birthDay)}"
         }
 
         when (pet.sex) {
-            getString(R.string.pet_sex_female) -> petSex.setImageDrawable(getDrawable(R.drawable.ic_pets_pink_24dp))
-            getString(R.string.pet_sex_male) -> petSex.setImageDrawable(getDrawable(R.drawable.ic_pets_blue_24dp))
+            getString(R.string.pet_sex_female) -> petSexImage.setImageDrawable(getDrawable(R.drawable.ic_pets_pink_24dp))
+            getString(R.string.pet_sex_male) -> petSexImage.setImageDrawable(getDrawable(R.drawable.ic_pets_blue_24dp))
         }
 
         if (pet.neutered) {
-            isNeutered.visibility = View.VISIBLE
+            neuteredText.visibility = View.VISIBLE
         }
 
         if(pet.insuranceProvider == "" && pet.insuranceNumber == ""){
-            petInsCard.visibility = View.GONE
+            petInsuranceInfoCard.visibility = View.GONE
         }
 
         if(pet.insuranceProvider == ""){
-            petInsProvLayout.visibility = View.GONE
+            insuranceProviderLayout.visibility = View.GONE
         }else{
-            insProvider.text = pet.insuranceProvider
+            petInsuranceProviderText.text = pet.insuranceProvider
         }
 
         if(pet.insuranceNumber == ""){
-            petInsNrLayout.visibility = View.GONE
+            insuranceNumberLayout.visibility = View.GONE
         }else{
-            insNr.text = pet.insuranceNumber
+            petInsuranceNumberText.text = pet.insuranceNumber
         }
 
     }
 
     private fun loadImage(imageUri: Uri) {
-        //Glide.with(this).load(imageUri).into(petImageView)
-        //Picasso.get().load(imageUri).into(petImageView)
+        Glide.with(this).load(imageUri).into(pImage)
+        //Picasso.get().load(imageUri).into(pImage)
     }
 
     private fun calculateAge(bd: String): Int {

@@ -23,7 +23,7 @@ import com.example.pettracker.Database.Pet
 import com.example.pettracker.Database.PetRoomDatabase
 import com.example.pettracker.Database.PetViewModel
 import com.example.pettracker.R
-import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.activity_pet.*
 import kotlinx.android.synthetic.main.card_general_add_pet.*
 import kotlinx.android.synthetic.main.card_insurance_add_pet.*
 import kotlinx.android.synthetic.main.card_veterinary_add_pet.*
@@ -31,47 +31,14 @@ import java.util.*
 
 class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var db: PetRoomDatabase
-
     private lateinit var toolbar: Toolbar
-    private lateinit var toolbarTitle : TextView
-
     private var petUUID: String = ""
-
-    private lateinit var petImage : ImageView
-    private lateinit var addPetImageButton : ImageView
-    private lateinit var deletePetImageButton : ImageView
     private val PICK_IMAGE_REQUEST = 1
     private val PERMISSION_CODE = 1001
     private var imageUri :Uri? = null
-    private lateinit var uniqueId: String
-
-    private lateinit var nameInput : EditText
-    private lateinit var breederInput : EditText
-    private lateinit var idInput : EditText
-    private lateinit var raceInput : EditText
-
     private lateinit var cal :Calendar
-    private lateinit var birthDateInput : EditText
-    private lateinit var birthDateLayout : TextInputLayout
     private var petBirthDate: String = ""
-
-    private lateinit var femaleButton : Button
-    private lateinit var maleButton : Button
-    private lateinit var petSexError : EditText
-    private lateinit var neuteredCheck : CheckBox
-
-    private lateinit var insProviderInput : EditText
-    private lateinit var insNrInput : EditText
-
-    private lateinit var vaccineDate : EditText
-
-    private lateinit var saveButton : Button
-
-
-    private lateinit var petSex :String
-
-
-
+    private var petSex =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,45 +47,23 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         toolbar = findViewById(R.id.toolbarID)
         toolbar.title= getString(R.string.empty)
         this.setSupportActionBar(toolbar)
-        toolbarTitle = toolbar.findViewById(R.id.toolbar_pet_name)
-        toolbarTitle.text = getString(R.string.app_name)
+        toolbar_pet_name.text = getString(R.string.app_name)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        petImage = this.petImageView
-        petImage.setOnClickListener(this)
-        addPetImageButton = this.addImageID
-        addPetImageButton.setOnClickListener(this)
-        deletePetImageButton = this.removeImageID
-        deletePetImageButton.setOnClickListener(this)
+        petImageView.setOnClickListener(this)
+        addImageID.setOnClickListener(this)
+        removeImageID.setOnClickListener(this)
 
-        nameInput = this.petNameInput
-        breederInput = this.petBreederNameInput
-        idInput = this.petIdNumberInput
-        raceInput = this.petRaceInput
+        petAgeInput.setOnClickListener(this)
+        textInputLayoutAge.setOnClickListener(this)
 
-        birthDateInput = this.petAgeInput
-        birthDateInput.setOnClickListener(this)
-        birthDateLayout = this.textInputLayoutAge
-        birthDateLayout.setOnClickListener(this)
+        buttonFemale.setOnClickListener(this)
+        buttonMale.setOnClickListener(this)
 
-        femaleButton = this.buttonFemale
-        femaleButton.setOnClickListener(this)
-        maleButton = this.buttonMale
-        maleButton.setOnClickListener(this)
-        petSexError = this.errorPetSex
-        neuteredCheck = this.neuteredCheckbox
+        vaccineDateInput0.setOnClickListener(this)
 
-        insProviderInput = this.insuranceProviderInput
-        insNrInput = this.insuranceNumberInput
-
-        vaccineDate = this.vaccineDateInput0
-        vaccineDate.setOnClickListener(this)
-
-        saveButton = this.buttonSave
-        saveButton.setOnClickListener(this)
-
-        petSex =""
+        buttonSave.setOnClickListener(this)
 
         cal = Calendar.getInstance()
 
@@ -130,66 +75,68 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onClick(v: View?) {
-        var petName = nameInput.text.toString().trim()
-        var petBreederName = breederInput.text.toString().trim()
-        var petId = idInput.text.toString().trim()
-        var petRace = raceInput.text.toString().trim()
-        var isNeutered = false
-
-        if (neuteredCheck.isChecked){
-            isNeutered = true
-        }
-
-        var insProvider = insProviderInput.toString().trim()
-        var insNr = insNrInput.toString().trim()
 
         when (v?.id){
             R.id.addImageID->checkPermission()
             R.id.petImageView->checkPermission()
             R.id.removeImageID->{
                 imageUri = null
-                deletePetImageButton.visibility = View.GONE
+                removeImageID.visibility = View.GONE
                 Glide.with(this).load(getDrawable(R.drawable.ic_pets_white_24dp)).into(petImageView)
 
             }
             R.id.petAgeInput -> {
-                pickDate(birthDateInput)
+                pickDate(petAgeInput)
 
             }
             R.id.textInputLayoutAge -> {
-                pickDate(birthDateInput)
-                petBirthDate = birthDateInput.text.toString()
+                pickDate(petAgeInput)
+                petBirthDate = petAgeInput.text.toString()
             }
             R.id.buttonFemale -> {
                 petSex = getString(R.string.pet_sex_female)
-                femaleButton.background = getDrawable(R.drawable.button_frame_light)
-                maleButton.background = getDrawable(R.drawable.button_frame_dark)
-                petSexError.error = null
+                buttonFemale.background = getDrawable(R.drawable.button_frame_light)
+                buttonMale.background = getDrawable(R.drawable.button_frame_dark)
+                errorPetSex.error = null
 
             }
             R.id.buttonMale -> {
                 petSex = getString(R.string.pet_sex_male)
-                maleButton.background = getDrawable(R.drawable.button_frame_light)
-                femaleButton.background = getDrawable(R.drawable.button_frame_dark)
-                petSexError.error = null
+                buttonMale.background = getDrawable(R.drawable.button_frame_light)
+                buttonFemale.background = getDrawable(R.drawable.button_frame_dark)
+                errorPetSex.error = null
 
             }
-            R.id.vaccineDateInput0->pickDate(vaccineDate)
-            R.id.buttonSave -> { savePet(petName, petId, petBreederName, petRace, isNeutered, insProvider, insNr)
+            R.id.vaccineDateInput0->pickDate(vaccineDateInput0)
+            R.id.buttonSave -> { savePet()
 
             }
         }
     }
 
-    private fun savePet(petName:String, petId: String, petBreederName: String, petRace: String, isNeutered: Boolean, insProvider:String, insNr: String){
+    private fun savePet(){
+        var petName = petNameInput.text.toString().trim()
+        var petBreederName = petBreederNameInput.text.toString().trim()
+        var petId = petIdNumberInput.text.toString().trim()
+        var petRace = petRaceInput.text.toString().trim()
+        var isNeutered = false
+
+        if (neuteredCheckbox.isChecked){
+            isNeutered = true
+        }
+
+        var insProvider = insuranceProviderInput.text.toString().trim()
+        var insNr = insuranceNumberInput.text.toString().trim()
+
+
         if(petName==""){
-            nameInput.error = getString(R.string.input_error_pet_name)
-            nameInput.requestFocus()
+            petNameInput.error = getString(R.string.input_error_pet_name)
+            petNameInput.requestFocus()
             return
         }
         if(petSex == ""){
-            petSexError.error = getString(R.string.input_error_pet_sex)
-            petSexError.requestFocus()
+            errorPetSex.error = getString(R.string.input_error_pet_sex)
+            errorPetSex.requestFocus()
             return
         }
         Log.d("PETS", "petUUID 1: ${petUUID}")
@@ -230,7 +177,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
         Log.d(
             "PET3",
-            "Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Birthdate = ${birthDateInput.text} Sex = $petSex, Neutered = $isNeutered"
+            "Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Birthdate = ${petAgeInput.text} Sex = $petSex, Neutered = $isNeutered"
         )
 
     }
@@ -297,7 +244,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         if(resultCode == Activity.RESULT_OK && requestCode == PICK_IMAGE_REQUEST){
             imageUri = data?.data
             loadImage()
-            deletePetImageButton.visibility = View.VISIBLE
+            removeImageID.visibility = View.VISIBLE
         }
     }
 
