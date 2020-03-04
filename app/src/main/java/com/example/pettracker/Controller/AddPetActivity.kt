@@ -9,6 +9,8 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -107,20 +109,8 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
                 pickDate(petAgeInput)
                 petBirthDate = petAgeInput.text.toString()
             }
-            R.id.buttonFemale -> {
-                petSex = getString(R.string.pet_sex_female)
-                buttonFemale.background = getDrawable(R.drawable.button_frame_light)
-                buttonMale.background = getDrawable(R.drawable.button_frame_dark)
-                errorPetSex.error = null
-
-            }
-            R.id.buttonMale -> {
-                petSex = getString(R.string.pet_sex_male)
-                buttonMale.background = getDrawable(R.drawable.button_frame_light)
-                buttonFemale.background = getDrawable(R.drawable.button_frame_dark)
-                errorPetSex.error = null
-
-            }
+            R.id.buttonFemale -> setFemale()
+            R.id.buttonMale -> setMale()
             R.id.vaccineDateInput0->pickDate(vaccineDateInput0)
             R.id.buttonSave -> { savePet()
 
@@ -128,6 +118,19 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
+    private fun setFemale(){
+        petSex = getString(R.string.pet_sex_female)
+        buttonFemale.background = getDrawable(R.drawable.button_frame_light)
+        buttonMale.background = getDrawable(R.drawable.button_frame_dark)
+        errorPetSex.error = null
+    }
+
+    private fun setMale(){
+        petSex = getString(R.string.pet_sex_male)
+        buttonMale.background = getDrawable(R.drawable.button_frame_light)
+        buttonFemale.background = getDrawable(R.drawable.button_frame_dark)
+        errorPetSex.error = null
+    }
     private fun savePet(){
         val petName = petNameInput.text.toString().trim()
         val petBreederName = petBreederNameInput.text.toString().trim()
@@ -157,7 +160,6 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
         if (petUUID == "") {
             petUUID = UUID.randomUUID().toString()
-            Log.d("PETS", "generate petUUID: $petUUID")
         }
 
         val pet = Pet(
@@ -180,10 +182,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
             mPetViewModel.insert(pet)
 
             startActivity(
-                Intent(
-                    this@AddPetActivity,
-                    PetActivity::class.java
-                ).putExtra("id", petUUID)
+                Intent(this@AddPetActivity, PetActivity::class.java).putExtra("id", petUUID)
             )
 
         }.start()
@@ -235,13 +234,10 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     ) {
         when(requestCode){
             PERMISSION_CODE->{
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED){
-                    //permission from popup granted
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     openFileChooser()
                 }
                 else{
-                    //permission from popup denied
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -272,6 +268,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
 
         //TODO - Make this work
+
         //petNameInput.setText(pet.name)
 
        // petBreederNameInput.text = pet.breederName as Editable
@@ -282,22 +279,11 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         //insuranceProviderInput.text = pet.insuranceProvider as Editable
         //insuranceNumberInput.text = pet.insuranceNumber as Editable
 
-        if(pet.neutered){
-            neuteredCheckbox.isChecked = true
-        }
+        if(pet.neutered) neuteredCheckbox.isChecked = true
 
         when(pet.sex){
-            getString(R.string.pet_sex_female) -> {
-                petSex = pet.sex
-                buttonFemale.background = getDrawable(R.drawable.button_frame_light)
-                buttonMale.background = getDrawable(R.drawable.button_frame_dark)
-            }
-
-            getString(R.string.pet_sex_male) -> {
-                petSex = pet.sex
-                buttonMale.background = getDrawable(R.drawable.button_frame_light)
-                buttonFemale.background = getDrawable(R.drawable.button_frame_dark)
-            }
+            getString(R.string.pet_sex_female) -> setFemale()
+            getString(R.string.pet_sex_male) -> setMale()
         }
 
         try {

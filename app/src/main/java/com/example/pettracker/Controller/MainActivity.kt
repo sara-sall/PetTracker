@@ -2,7 +2,6 @@ package com.example.pettracker.Controller
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProviders
@@ -36,7 +35,6 @@ class MainActivity : AppCompatActivity() {
             mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
             pets = mPetViewModel.allPets
             adapter.updatePetsList(pets)
-            Log.d("PETS", "on Create2: $pets")
         }.start()
 
 
@@ -49,7 +47,6 @@ class MainActivity : AppCompatActivity() {
                     pet.id
                 )
             )
-            Log.d("PETS", "$pet.petImage")
         }
         recyclerViewID.adapter = adapter
 
@@ -58,6 +55,13 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view -> startActivity(Intent(this@MainActivity, AddPetActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+        val a =  Intent(Intent.ACTION_MAIN)
+        a.addCategory(Intent.CATEGORY_HOME)
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(a)
     }
 
 }
