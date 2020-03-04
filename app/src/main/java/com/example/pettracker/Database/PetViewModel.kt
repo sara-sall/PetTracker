@@ -1,25 +1,54 @@
 package com.example.pettracker.Database
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class PetViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mRepository: PetRepository = PetRepository(application)
-    val allPets: ArrayList<Pet> = mRepository.allPets as ArrayList<Pet>
 
-    fun insert(pet: Pet): Unit {
-        mRepository.insert(pet)
+    val petByUuidLiveData = MutableLiveData<Pet?>()
+    val pets = MutableLiveData<List<Pet>>()
+
+    fun insert(pet: Pet) {
+        viewModelScope.launch {
+            mRepository.insert(pet)
+        }
     }
 
-    fun getPetById(petUUID: String): Pet {
-        return mRepository.getPetById(petUUID)
+    fun getPetById(petUUID: String) {
+        viewModelScope.launch {
+            val pet = withContext(Dispatchers.IO){
+                mRepository.getPetByIdNew(petUUID)
+            }
+            Log.d("PET", "Pet: $pet")
+            petByUuidLiveData.value = pet
+        }
     }
 
     fun deletePet(pet: Pet){
-        mRepository.delete(pet)
+        viewModelScope.launch {
+            withContext(Dispatchers.IO){
+                mRepository.delete(pet)
+            }
+        }
+    }
+
+    fun getAllPets() {
+        viewModelScope.launch {
+            val petsList = withContext(Dispatchers.IO){
+                mRepository.getPets()
+            }
+            pets.value = petsList
+        }
     }
 
 }

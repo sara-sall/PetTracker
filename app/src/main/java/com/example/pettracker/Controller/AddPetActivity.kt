@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -40,12 +39,13 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var cal :Calendar
     private var petBirthDate: String = ""
     private var petSex =""
-
-    private var pet: Pet? = null
+    private lateinit var petViewModel: PetViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_pet)
+
+        petViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
 
         toolbar = findViewById(R.id.toolbarID)
         toolbar.title= getString(R.string.empty)
@@ -74,15 +74,17 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
         db = PetRoomDatabase.getInstance(this)
 
+        petImageView.setImageResource(R.drawable.ic_pets_white_24dp)
+
         val extras = intent.extras
 
         if(extras != null){
             val id = extras.get("id") as String
-            Thread {
-                pet = db.petRoomDao().getPetById(id)
-                addPetData(pet!!)
-                Log.d("PETS", "${pet?.name}: ${pet?.id}")
-            }.start()
+
+            petViewModel.getPetById(id)
+            petViewModel.petByUuidLiveData.observe(this, androidx.lifecycle.Observer {
+                it?.let { addPetData(it) }
+            })
         }
 
     }
@@ -165,13 +167,10 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
         )
 
-        Thread {
-            val mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
-            mPetViewModel.insert(pet)
+        val mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
+        mPetViewModel.insert(pet)
 
-            startActivity(Intent(this@AddPetActivity, PetActivity::class.java).putExtra("id", petUUID))
-
-        }.start()
+        startActivity(Intent(this@AddPetActivity, PetActivity::class.java).putExtra("id", petUUID))
     }
 
     private fun pickDate(inputField: EditText) {
@@ -234,6 +233,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun loadImage(){
         Glide.with(this).load(imageUri).into(petImageView)
+        removeImageID.visibility = View.VISIBLE
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -245,18 +245,13 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         petUUID = pet.id
         toolbar_pet_name.text = String.format(getString(R.string.title_edit_pet), pet.name)
 
-
-        //TODO - Make this work
-
-        //petNameInput.setText(pet.name)
-
-       // petBreederNameInput.text = pet.breederName as Editable
-       // petIdNumberInput.text = pet.petID as Editable
-        //petRaceInput.text = pet.race as Editable
-        //petAgeInput.text = pet.birthDay as Editable
-
-        //insuranceProviderInput.text = pet.insuranceProvider as Editable
-        //insuranceNumberInput.text = pet.insuranceNumber as Editable
+        petNameInput.setText(pet.name)
+        petBreederNameInput.setText(pet.breederName)
+        petIdNumberInput.setText(pet.petID)
+        petRaceInput.setText(pet.race)
+        petAgeInput.setText(pet.birthDay)
+        insuranceProviderInput.setText(pet.insuranceProvider)
+        insuranceNumberInput.setText(pet.insuranceNumber)
 
         if(pet.neutered) neuteredCheckbox.isChecked = true
 
@@ -268,8 +263,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         try {
             if(pet.petImage != "null"){
                 imageUri = Uri.parse(pet.petImage)
-                petImageView.setImageURI(imageUri)
-                removeImageID.visibility = View.VISIBLE
+                loadImage()
             }
         } catch (e : Exception){
 

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(
     tableName = "pets"
 )
-class Pet (
+data class Pet (
     @PrimaryKey
     val id: String,
     var name: String,
@@ -19,6 +19,4 @@ class Pet (
     var neutered: Boolean,
     var insuranceProvider: String,
     var insuranceNumber: String
-) {
-    //, val breederName: String, val birthday: Int, val birthMonth: Int, val birthYear: Int, val race: String, val insuranceProvider: String, val insuranceNr: String, val petId: String
-}
+)

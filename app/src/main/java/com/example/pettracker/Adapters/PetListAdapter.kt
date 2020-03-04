@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.pettracker.Controller.MainActivity
 import com.example.pettracker.Database.Pet
 import com.example.pettracker.R
 import java.lang.Exception
@@ -36,7 +38,7 @@ class PetListAdapter(val context: Context, var pets: List<Pet>, val itemClick: (
             try {
                 if(pet.petImage != "null"){
                     val imgUri: Uri = Uri.parse(pet.petImage)
-                    petImage.setImageURI(imgUri)
+                    Glide.with(itemView.context).load(imgUri).into(petImage)
                 }else{
                     petImage.visibility = View.GONE
                 }

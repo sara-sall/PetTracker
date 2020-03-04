@@ -1,47 +1,24 @@
 package com.example.pettracker.Database
 
 import android.app.Application
-import android.os.AsyncTask
 
 class PetRepository(application: Application) {
     val db: PetRoomDatabase = PetRoomDatabase.getInstance(application)
     val petDao: PetDao = db.petRoomDao()
-    val allPets: List<Pet> = petDao.getPets()
 
-    fun getPetById(petUUID: String): Pet {
-        return petByIdTask(petDao).doInBackground(petUUID)
+    suspend fun getPetByIdNew(petUUID: String): Pet? {
+        return petDao.getPetById(petUUID)
     }
 
-    fun insert(pet: Pet): Unit {
-        insertAsyncTask(petDao).execute(pet)
+    suspend fun insert(pet: Pet) {
+        petDao.addOrUpdatePet(pet)
     }
 
-    fun delete(pet: Pet){
-        deletePetById(petDao).execute(pet)
+    suspend fun delete(pet: Pet){
+        petDao.deletePet(pet)
     }
 
-    private class insertAsyncTask(petDao: PetDao) : AsyncTask<Pet, Void, Void>() {
-        private val mAsyncTaskDao: PetDao = petDao
-        override fun doInBackground(vararg params: Pet?): Void? {
-            mAsyncTaskDao.addOrUpdatePet(params[0])
-            return null
-        }
-
-    }
-
-    private class petByIdTask(petDao: PetDao) : AsyncTask<String, Void, Pet>() {
-        private val mTaskDao: PetDao = petDao
-        public override fun doInBackground(vararg params: String?): Pet {
-            return mTaskDao.getPetById(params.toString())
-        }
-    }
-
-    private class deletePetById(petDao: PetDao) : AsyncTask<Pet, Void, Void>() {
-        private val mAsyncTaskDao: PetDao = petDao
-        override fun doInBackground(vararg params: Pet): Void? {
-            mAsyncTaskDao.deletePet(params[0])
-            return null
-        }
-
+    suspend fun getPets() : ArrayList<Pet>{
+        return petDao.getPets() as ArrayList<Pet>
     }
 }
