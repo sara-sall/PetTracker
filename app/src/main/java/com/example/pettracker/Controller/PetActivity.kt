@@ -73,15 +73,15 @@ class PetActivity : AppCompatActivity() {
 
         }
 
-        if (pet.breederName == "") breederNameLayout.visibility = View.GONE
+        if (pet.breederName == "") visGone(breederNameLayout)
         else petBreederNameText.text = pet.breederName
 
-        if (pet.race == "") raceLayout.visibility = View.GONE
+        if (pet.race == "") visGone(raceLayout)
         else petRaceText.text = pet.race
 
         if (pet.birthDay == "") {
-            petAgeLayout.visibility = View.GONE
-            petAgeText.visibility = View.GONE
+            visGone(petAgeLayout)
+            visGone(petAgeText)
         } else {
             petBirthdateText.text = pet.birthDay
             petAgeText.text = "${calculateAge(pet.birthDay)}"
@@ -92,16 +92,20 @@ class PetActivity : AppCompatActivity() {
             getString(R.string.pet_sex_male) -> petSexImage.setImageDrawable(getDrawable(R.mipmap.ic_male_icon))
         }
 
-        if (pet.neutered) neuteredText.visibility = View.VISIBLE
+        if (pet.neutered) visGone(neuteredText)
 
-        if(pet.insuranceProvider == "" && pet.insuranceNumber == "")petInsuranceInfoCard.visibility = View.GONE
+        if(pet.insuranceProvider == "" && pet.insuranceNumber == "") visGone(petInsuranceInfoCard)
 
-        if(pet.insuranceProvider == "")insuranceProviderLayout.visibility = View.GONE
+        if(pet.insuranceProvider == "") visGone(insuranceProviderLayout)
         else petInsuranceProviderText.text = pet.insuranceProvider
 
-        if(pet.insuranceNumber == "") insuranceNumberLayout.visibility = View.GONE
+        if(pet.insuranceNumber == "") visGone(insuranceNumberLayout)
         else petInsuranceNumberText.text = pet.insuranceNumber
 
+    }
+
+    private fun visGone(view: View){
+        view.visibility = View.GONE
     }
 
     private fun calculateAge(bd: String): Int {

@@ -9,8 +9,6 @@ import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -99,12 +97,8 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
                 imageUri = null
                 removeImageID.visibility = View.GONE
                 Glide.with(this).load(getDrawable(R.drawable.ic_pets_white_24dp)).into(petImageView)
-
             }
-            R.id.petAgeInput -> {
-                pickDate(petAgeInput)
-
-            }
+            R.id.petAgeInput -> pickDate(petAgeInput)
             R.id.textInputLayoutAge -> {
                 pickDate(petAgeInput)
                 petBirthDate = petAgeInput.text.toString()
@@ -112,9 +106,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
             R.id.buttonFemale -> setFemale()
             R.id.buttonMale -> setMale()
             R.id.vaccineDateInput0->pickDate(vaccineDateInput0)
-            R.id.buttonSave -> { savePet()
-
-            }
+            R.id.buttonSave ->  savePet()
         }
     }
 
@@ -131,32 +123,28 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         buttonFemale.background = getDrawable(R.drawable.button_frame_dark)
         errorPetSex.error = null
     }
+
+    private fun getInput(input: EditText) : String = input.text.toString().trim()
+
     private fun savePet(){
-        val petName = petNameInput.text.toString().trim()
-        val petBreederName = petBreederNameInput.text.toString().trim()
-        val petId = petIdNumberInput.text.toString().trim()
-        val petRace = petRaceInput.text.toString().trim()
-        var isNeutered = false
 
-        if (neuteredCheckbox.isChecked){
-            isNeutered = true
-        }
-
-        val insProvider = insuranceProviderInput.text.toString().trim()
-        val insNr = insuranceNumberInput.text.toString().trim()
-
-
+        val petName = getInput(petNameInput)
         if(petName==""){
             petNameInput.error = getString(R.string.input_error_pet_name)
             petNameInput.requestFocus()
             return
         }
+
         if(petSex == ""){
             errorPetSex.error = getString(R.string.input_error_pet_sex)
             errorPetSex.requestFocus()
             return
         }
-        Log.d("PETS", "petUUID 1: $petUUID")
+
+        var isNeutered = false
+        if (neuteredCheckbox.isChecked){
+            isNeutered = true
+        }
 
         if (petUUID == "") {
             petUUID = UUID.randomUUID().toString()
@@ -165,15 +153,15 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
         val pet = Pet(
             petUUID,
             petName,
-            petId,
+            getInput(petIdNumberInput),
             imageUri.toString(),
-            petBreederName,
-            petRace,
+            getInput(petBreederNameInput),
+            getInput(petRaceInput),
             petBirthDate,
             petSex,
             isNeutered,
-            insProvider,
-            insNr
+            getInput(insuranceProviderInput),
+            getInput(insuranceNumberInput)
 
         )
 
@@ -181,18 +169,9 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
             val mPetViewModel = ViewModelProviders.of(this).get(PetViewModel::class.java)
             mPetViewModel.insert(pet)
 
-            startActivity(
-                Intent(this@AddPetActivity, PetActivity::class.java).putExtra("id", petUUID)
-            )
+            startActivity(Intent(this@AddPetActivity, PetActivity::class.java).putExtra("id", petUUID))
 
         }.start()
-
-
-        Log.d(
-            "PET3",
-            "Name = $petName, BreederName = $petBreederName, Id = $petId, Race = $petRace, Birthdate = ${petAgeInput.text} Sex = $petSex, Neutered = $isNeutered"
-        )
-
     }
 
     private fun pickDate(inputField: EditText) {
