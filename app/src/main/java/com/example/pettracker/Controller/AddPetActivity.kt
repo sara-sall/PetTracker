@@ -304,6 +304,7 @@ class AddPetActivity : AppCompatActivity(), View.OnClickListener{
             if(pet.petImage != "null"){
                 imageUri = Uri.parse(pet.petImage)
                 petImageView.setImageURI(imageUri)
+                removeImageID.visibility = View.VISIBLE
             }
         } catch (e : Exception){
 
