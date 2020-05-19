@@ -91,7 +91,7 @@ class PetActivity : AppCompatActivity() {
             getString(R.string.pet_sex_male) -> petSexImage.setImageDrawable(getDrawable(R.mipmap.ic_male_icon))
         }
 
-        if (pet.neutered) visGone(neuteredText)
+        if (!pet.neutered) visGone(neuteredText)
 
         if (pet.insuranceProvider == "" && pet.insuranceNumber == "") visGone(petInsuranceInfoCard)
 
